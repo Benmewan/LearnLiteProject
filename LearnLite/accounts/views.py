@@ -1,4 +1,4 @@
-from django.shortcuts import render
-
-def register_view(request):
-    return render(request, 'register.html')
+from django.shortcuts import render, redirect
+from django.http import HttpRequest, HttpResponse
+def register_view(request:HttpRequest):
+    return render(request, 'accounts/register.html')
