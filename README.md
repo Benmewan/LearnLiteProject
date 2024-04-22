@@ -1,13 +1,13 @@
 # LearnLiteProject
 
 # group members 
-- Hmam aljedawi 
+- Hammam aljeddawi 
 - Abdullah Alhomidi 
-- Salem al samel 
-- Abdulaziz bn mrwan  
+- Salem al salem 
+- Abdulaziz bahattab 
  
 # Project description 
- A ewbsite for the students who is looking for effiecent studey.
+ A website for the students who is looking for effiecent studey.
  Using AI the user can generate Summary or generate test from the file that the user has provided.
 
  # learnlite wireframe 
