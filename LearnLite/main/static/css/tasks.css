@@ -3,41 +3,66 @@
     padding: 0px;
     font-family: "Open Sans", sans-serif;;
 }
-.filter_inputs {
+.book {
     position: relative;
+    border-radius: 10px;
+    width: 220px;
+    height: 300px;
+    background-color: whitesmoke;
+    -webkit-box-shadow: 1px 1px 12px #000;
+    box-shadow: 1px 1px 12px #000;
+    -webkit-transform: preserve-3d;
+    -ms-transform: preserve-3d;
+    transform: preserve-3d;
+    -webkit-perspective: 2000px;
+    perspective: 2000px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
-    border-radius: 0.5rem;
-    background-color: #EEE;
-    box-sizing: border-box;
-    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
-    padding: 0.25rem;
-    width: 300px;
-    font-size: 14px;
-  }
-  
-  .filter_inputs .options {
-    flex: 1 1 auto;
-    text-align: center;
-  }
-  
-  .filter_inputs .options input {
-    display: none;
-  }
-  
-  .filter_inputs .options .option_name {
-    display: flex;
-    cursor: pointer;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
-    border-radius: 0.5rem;
-    border: none;
-    padding: .5rem 0;
-    color: rgba(51, 65, 85, 1);
-    transition: all .15s ease-in-out;
+    color: #000;
   }
   
-  .filter_inputs .options input:checked + .option_name {
-    background-color: #fff;
-    font-weight: 600;
+  .cover {
+    top: 0;
+    position: absolute;
+    background-color: lightgray;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-transform-origin: 0;
+    -ms-transform-origin: 0;
+    transform-origin: 0;
+    -webkit-box-shadow: 1px 1px 12px #000;
+    box-shadow: 1px 1px 12px #000;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+  
+  .book:hover .cover {
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-transform: rotatey(-80deg);
+    -ms-transform: rotatey(-80deg);
+    transform: rotatey(-80deg);
+  }
+  
+  p {
+    font-size: 20px;
+    font-weight: bolder;
   }
