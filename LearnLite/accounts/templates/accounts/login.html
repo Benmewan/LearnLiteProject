@@ -1,0 +1,33 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Login{% endblock title %}
+
+{% block style %}
+    {% static 'css/tasks.css' %}
+{% endblock style %}
+
+{% block content %}
+<form class="d-flex flex-column align-items-center" action="{% url 'accounts:user_login' %}" method="post">
+    {% csrf_token %}
+
+    <div class="input-container">
+        <input type="text" name="username" id="username" required minlength="3">
+        <label for="username" class="label">Username</label>
+        <div class="underline"></div>
+    </div>
+
+    <div class="input-container">
+        <input type="password" name="password" id="password" required minlength="6">
+        <label for="password" class="label">Password</label>
+        <div class="underline"></div>
+    </div>
+    {% if msg %}
+        <p class="text text-danger">The username is already exist</p>
+    {% endif %}
+    <button class="button">Login</button>
+</form>
+<p class="p-3 text-white">Don't Have Account? <a class="text-white" href="{% url 'accounts:register_user' %}">Sign Up</a></p>
+
+{% endblock %}
+    
