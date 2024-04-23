@@ -10,9 +10,91 @@
     <link href="{% block style %} {% static 'css/main_style.css' %} {% endblock %}" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
   </head>
   <body>
+    <div class="sidebar">
+        <div class="logo-details">
+          <i class='bx bx-chip icon'></i>
+            <div class="logo_name">LearnLite</div>
+            <i class='bx bx-menu' id="btn" ></i>
+        </div>
+        <ul class="nav-list">
+            <li>
+                <a href="{% url 'main:index_view' %}">
+                    <i class='bx bx-home'></i>
+                  <span class="links_name">Home</span>
+                </a>
+                <span class="tooltip">Home</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bxs-book-open'></i>
+                  <span class="links_name">Summary</span>
+                </a>
+                <span class="tooltip">summary</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-pencil'></i>
+                  <span class="links_name">Quiz</span>
+                </a>
+                <span class="tooltip">Quiz</span>
+            </li>
+          <li>
+            <a href="{% url 'main:contact_view' %}">
+              <i class='bx bxs-contact'></i>
+              <span class="links_name">Contact us</span>
+            </a>
+             <span class="tooltip">Contact us</span>
+          </li>
+         <li>
+           <a href="{% url 'main:about_view' %}">
+            <i class='bx bx-info-circle'></i>
+             <span class="links_name">About us</span>
+           </a>
+           <span class="tooltip">About us</span>
+         </li>
+         <li>
+            <a href="{% url 'main:about_view' %}">
+                <i class='bx bxs-sun'></i>
+              <span class="links_name">Light mode</span>
+            </a>
+            <span class="tooltip">Light mode</span>
+          </li>
+         <li class="profile">
+             <div class="profile-details">
+                <i class='bx bx-user'></i>
+               <div class="name_job">
+                 <div class="name">user name</div>
+               </div>
+             </div>
+             <a href="#"><i class='bx bx-log-out' id="log_out" ></i></a>
+         </li>
+        </ul>
+      </div>
+      <script>
+      let sidebar = document.querySelector(".sidebar");
+      let closeBtn = document.querySelector("#btn");
+      let searchBtn = document.querySelector(".bx-search");
+      closeBtn.addEventListener("click", ()=>{
+        sidebar.classList.toggle("open");
+        menuBtnChange();//calling the function(optional)
+      });
+      searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
+        sidebar.classList.toggle("open");
+        menuBtnChange(); //calling the function(optional)
+      });
+      // following are the code to change sidebar button(optional)
+      function menuBtnChange() {
+       if(sidebar.classList.contains("open")){
+         closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+       }else {
+         closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
+       }
+      }
+      </script>
     <div class="container">
       {% block content %}
 
