@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Summaries</title>
+</head>
+<body>
+    <h1>All Generated Summaries</h1>
+    {% if summaries %}
+        <ul>
+            {% for summary in summaries %}
+                <li>{{ summary.document.file.name }} - {{ summary.content|truncatewords:30 }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No summaries have been generated yet.</p>
+    {% endif %}
+    <a href="{% url 'summary:add_summary' %}">Generate New Summary</a> 
+</html>
