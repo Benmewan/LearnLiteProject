@@ -7,25 +7,29 @@
 {% block content %}
     <div class="row">
         <div class="col-md-12 mt-5">
-            <form class="d-flex flex-column align-items-center gap-3" action="" method="get">
+            <form class="d-flex flex-column gap-2 align-items-center" action="" method="get">
 
-                <div class="d-flex justify-content-evenly align-items-center w-100">
-                    <label for="filter_search">Search For Task:</label>
-                    <input id="filter_search" type="search" class="form-control w-50" name="search_query" placeholder="Title or Description...">
+                <div class="d-flex justify-content-between gap-3 align-items-center w-100">
+                    <div class="w-100 d-flex align-items-center gap-1">
+                        <label for="filter_search" style="white-space: pre;">Search For Task:</label>
+                        <input id="filter_search" type="search" class="form-control w-100" name="search_query" placeholder="Title or Description...">
+                    </div>
                         
-                    <label for="filter_options">Filter By:</label>
-                    <div id="filter_options" class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                        <label class="btn btn-outline-primary" for="btnradio1">None</label>
-                        
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio2">Almost Due</label>
-                        
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio3">Newest</label>
-    
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio4">Finished</label>
+                    <div class="d-flex gap-2 align-items-center filter_options">
+                        <label for="filter_options">Filter By:</label>
+                        <div id="filter_options" class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                            <label class="btn btn-outline-primary" for="btnradio1">None</label>
+                            
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio2">Almost Due</label>
+                            
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio3">Newest</label>
+        
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio4">Finished</label>
+                        </div>
                     </div>
                 </div>
                 <input type="submit" class="form-control btn btn-outline-primary" value="Search">
@@ -34,14 +38,35 @@
     </div>
     <hr>
     <div class="row">
-        <h2>My ToDo List:</h2>
-        <div class="col m-5">
-            <div class="book">
-                <p>Hello</p>
-                <div class="cover">
-                    <p>Hover Me</p>
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>My ToDo List:</h2>
+            <a class="btn btn-outline-success  d-flex justify-content-center align-items-center" href="{% url 'tasks:add_task_view' %}"><span class="material-symbols-outlined">add</span></a>
+        </div>
+        <div class="col mt-2 d-flex flex-column gap-3 align-items-center">
+            {% for task in tasks %}
+                <div class="border shadow rounded-4 w-100 d-flex justify-content-between p-3 align-items-center">
+                    <div class="d-flex align-items-center gap-5">
+                        <div>
+                            <img class="task_img" src="{% static 'images/to-do-list.png' %}" alt="task img">
+                        </div>
+                        <div class="d-flex flex-column gap-3">
+                            <h4>Course: {{task.title}}</h4>
+                            <p><b>Description:</b> {{task.description}}</p>
+                            <p><b>Due Date:</b> {{task.due_date}}</p>
+                            {% if not task.is_done %}
+                                <p class="text-danger"><b class="text-dark">Status:</b> Incomplete</p>
+                            {% else %}
+                                <p class="text-success"><b class="text-dark">Status:</b> Complete</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a class="btn btn-outline-danger  d-flex justify-content-center align-items-center" href=""><span class="material-symbols-outlined">delete</span></a>
+                        <a class="btn btn-outline-primary  d-flex justify-content-center align-items-center" href=""><span class="material-symbols-outlined">edit</span></a>
+                        <a class="btn btn-outline-success  d-flex justify-content-center align-items-center" href="{% url 'tasks:update_task_status_view' task.id %}"><span class="material-symbols-outlined">task_alt</span></a>
+                    </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock content %}
