@@ -7,3 +7,4 @@ class Task(models.Model):
     description = models.TextField()
     due_date = models.DateTimeField(auto_now_add=False)
     is_done = models.BooleanField()
+    created_at = models.DateTimeField(auto_now_add=True)
