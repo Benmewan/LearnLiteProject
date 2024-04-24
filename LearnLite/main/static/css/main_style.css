@@ -6,6 +6,11 @@
   box-sizing: border-box;
   font-family: "Poppins" , sans-serif;
 }
+
+.main_container {
+  min-height: 100vh;
+}
+
 /* navbar section */
 .sidebar{
   position: fixed;
@@ -235,9 +240,11 @@
 }
 /* footer section */
 .footer-basic {
-  padding:40px 0;
-  background-color:#1d1b31;
-  color:#fff;
+  position: absolute;
+  width: 100%;
+  padding: 40px 0;
+  background-color: #1d1b31;
+  color: #fff;
 }
 
 .footer-basic ul {
@@ -295,7 +302,10 @@
 }
 
 
+
 /* homepage section */
+
+
 .top_section {
   display: flex;
   flex-direction: row;
@@ -315,6 +325,11 @@
   margin-top: 10vw;
 }
 
+.titles {
+  display: flex;
+  justify-content: center;
+}
+
 .mid_section {
   display: flex;
   flex-direction: row;
@@ -322,4 +337,79 @@
 
 .bottom_section {
   display: flex;
+}
+
+/* contact page  */
+
+.content {
+  padding: 7rem 0; }
+
+  .form-control {
+    border: none;
+    border: 1px solid #d9d9d9;
+    border-radius: 0; }
+    .form-control:active, .form-control:focus {
+      outline: none;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      border-color: #000; }
+  
+  .col-form-label {
+    color: #000; }
+  
+  .btn, .form-control {
+    height: 55px; }
+  
+  .btn:active, .btn:focus {
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none; }
+  
+  label.error {
+    font-size: 12px;
+    color: red; }
+  
+  #message {
+    resize: vertical; }
+  
+  #form-message-warning, #form-message-success {
+    display: none; }
+  
+  #form-message-warning {
+    color: #B90B0B; }
+  
+  #form-message-success {
+    color: #55A44E;
+    font-size: 18px;
+    font-weight: bold; }
+  
+  .submitting {
+    float: left;
+    width: 100%;
+    padding: 10px 0;
+    display: none;
+    font-weight: bold;
+    font-size: 12px;
+    color: #000; }
+
+/* about page */
+.about_page {
+  margin-top: 5vw;
+}
+.welcome {
+  display: flex;
+  justify-content: center;
+  font-size: 5vw;
+}
+
+.who_part {
+  margin-top: 2.5vw;
+}
+
+.story_part{
+  margin-top: 2.5vw;
+}
+
+.features_part{
+  margin-top: 2.5vw;
 }
