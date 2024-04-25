@@ -8,6 +8,9 @@
         <div class="row">
             <div class="col-md-5 mr-auto">
                 <h2>Contact Us</h2>
+                {% if request.user.is_superuser %}
+                <h2><a href="{% url 'main:message_view' %}" class="text-decoration-none">Guests messages</a></h2>
+                {% endif %}
                 <p class="mb-5"></p>
                 <ul class="list-unstyled pl-md-5 mb-5">
                 <li class="d-flex text-black mb-2">
@@ -18,7 +21,8 @@
                 </ul>
             </div>
             <div class="col-md-6">
-                <form class="mb-5" method="post" id="contactForm" name="contactForm">
+                <form action="{% url 'main:contact_view' %}" class="mb-5" method="post" enctype="multipart/form-data" id="contactForm" name="contactForm">
+                    {% csrf_token %}
                     <div class="row">
                         <div class="col-md-12 form-group">
                             <label for="name" class="col-form-label">Name</label>
@@ -39,7 +43,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <input type="submit" value="Send Message" class="btn btn-primary contact_us_submit_button rounded-0 py-2 px-4">
+                            <input type="submit" value="submit" class="btn btn-primary contact_us_submit_button rounded-0 py-2 px-4">
                             <span class="submitting"></span>
                         </div>
                     </div>

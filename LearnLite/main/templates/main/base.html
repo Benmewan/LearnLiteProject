@@ -52,6 +52,15 @@
               </a>
               <span class="tooltip">Tasks</span>
           </li>
+          {% if request.user.is_superuser %}
+          <li>
+          <a href="{% url 'main:message_view' %}">
+            <i class='bx bxs-contact'></i>
+            <span class="links_name">User Messages</span>
+          </a>
+           <span class="tooltip">User Messages</span>
+        </li>
+          {% else %}
           <li>
             <a href="{% url 'main:contact_view' %}">
               <i class='bx bxs-contact'></i>
@@ -59,6 +68,7 @@
             </a>
              <span class="tooltip">Contact us</span>
           </li>
+          {% endif %}
          <li>
            <a href="{% url 'main:about_view' %}">
             <i class='bx bx-info-circle'></i>
@@ -78,13 +88,19 @@
                 
                   <i class='bx bx-user'></i>
                 
-               <div class="name_job">
+               <div>
+                {% if request.user.is_authenticated %}
                 <a href="#">
-                  <span class="links_name">Sign in</span>
+                  <span class="links_name p-3">{{request.user.username }}</span>
                 </a>
+                {% else %}
+                <a href="{% url 'accounts:register_user' %}">
+                  <span class="links_name p-3">Sign in</span>
+                </a>
+                {% endif %}
                </div>
              </div>
-             <a href="#"><i class='bx bx-log-out' id="log_out" ></i></a>
+             <a href="{% url 'accounts:user_logout' %}"><i class='bx bx-log-out' id="log_out" ></i></a>
          </li>
         </ul>
       </div>
