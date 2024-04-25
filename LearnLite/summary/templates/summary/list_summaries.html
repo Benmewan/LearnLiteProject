@@ -1,19 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>All Summaries</title>
-</head>
-<body>
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %}All Summaries{% endblock title %}
+
+{% block style %}{% static 'css/tasks.css' %}{% endblock style %}
+
+{% block content %}
+<div style="min-height: 100vh ;" class=" mt-5">
     <h1>All Generated Summaries</h1>
     {% if summaries %}
-        <ul>
+        <div class="row">
             {% for summary in summaries %}
-                <li>{{ summary.document.file.name }} - {{ summary.content|truncatewords:30 }}</li>
+                <!-- Each summary card is a link -->
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ summary.document.file.name }}</h5>
+                            <p class="card-text">{{ summary.content|truncatewords:30 }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'summary:display_summary' summary.id %}" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     {% else %}
         <p>No summaries have been generated yet.</p>
     {% endif %}
-    <a href="{% url 'summary:add_summary' %}">Generate New Summary</a> 
-</html>
+    <a href="{% url 'summary:add_summary' %}" class="btn btn-primary mt-3">Generate New Summary</a>
+</div>
+{% endblock content %}

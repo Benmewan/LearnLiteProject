@@ -21,29 +21,34 @@ if not API_KEY:
     raise ValueError("No API key loaded from environment variables")
 
 
+from django.shortcuts import render, redirect
+from .models import Document, Summary
+import PyPDF2
+import openai
+from django.contrib import messages
+
+@login_required
 def add_summary(request):
     if request.method == 'POST' and request.FILES.get('document'):
         doc_file = request.FILES['document']
         new_doc = Document(uploaded_by=request.user, file=doc_file)
         new_doc.save()
 
-        # Extract text from PDF
         text = extract_text_from_pdf(doc_file)
-
-        # Only attempt to generate a summary if there's text extracted
         if text.strip():
-            prompt = f"Summarize the document content: {text[:2000]}"
+            prompt = "Summarize the following document in detail: " + text[:5000]
             try:
                 content = get_completion(prompt)
-                new_summary = Summary(document=new_doc, content=content)
+                new_summary = Summary(document=new_doc, user=request.user, content=content, complexity_level=request.POST.get('complexity', 'main_points'), status='completed')
                 new_summary.save()
-                messages.success(request, "Summary added successfully.")
-                return redirect('summary:display_summary', summary_id=new_summary.id)  
+                messages.success(request, "Summary generated successfully.")
+                return redirect('summary:display_summary', summary_id=new_summary.id)
             except Exception as e:
-                print("API generation failed:", e)
                 messages.error(request, f"Summary generation failed. Error: {str(e)}")
+                return render(request, 'summary/add_summary.html')
         else:
             messages.error(request, "No text could be extracted from the uploaded document.")
+            return render(request, 'summary/add_summary.html')
     return render(request, 'summary/add_summary.html')
 
 
@@ -81,8 +86,18 @@ def view_summary(request, summary_id):
     summary = get_object_or_404(Summary, id=summary_id, user=request.user)
     return render(request, 'summary/detail.html', {'summary': summary})
 
-
+@login_required
 def list_summaries(request):
-    summaries = Summary.objects.all()  
+    # Fetch only summaries created by the logged-in user
+    summaries = Summary.objects.filter(user=request.user)
     return render(request, 'summary/list_summaries.html', {'summaries': summaries})
 
+
+def save_summary(request, summary_id):
+    # This could just redirect to the list or do something else, depending on your requirements
+    return redirect('summary:list_summaries')
+
+def discard_summary(request, summary_id):
+    summary = get_object_or_404(Summary, id=summary_id)
+    summary.delete()  # This deletes the summary
+    return redirect('summary:add_summary')  # Redirect to generate a new summary
