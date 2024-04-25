@@ -243,7 +243,7 @@
   position: absolute;
   width: 100%;
   padding: 40px 0;
-  background-color: #1d1b31;
+  background-color: #11101D;
   color: #fff;
 }
 
@@ -344,11 +344,11 @@
 .content {
   padding: 7rem 0; }
 
-  .form-control {
+  .contact_us_text_input {
     border: none;
     border: 1px solid #d9d9d9;
     border-radius: 0; }
-    .form-control:active, .form-control:focus {
+    .contact_us_text_input:active, .contact_us_text_input:focus {
       outline: none;
       -webkit-box-shadow: none;
       box-shadow: none;
@@ -357,10 +357,9 @@
   .col-form-label {
     color: #000; }
   
-  .btn, .form-control {
-    height: 55px; }
   
-  .btn:active, .btn:focus {
+  
+  .contact_us_submit_button:active, .contact_us_submit_button:focus {
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none; }
