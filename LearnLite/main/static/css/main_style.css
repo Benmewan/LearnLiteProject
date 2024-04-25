@@ -243,7 +243,7 @@
   position: absolute;
   width: 100%;
   padding: 40px 0;
-  background-color: #1d1b31;
+  background-color: #11101D;
   color: #fff;
 }
 
@@ -357,8 +357,7 @@
   .col-form-label {
     color: #000; }
   
-  .btn, .form-control {
-    height: 55px; }
+  
   
   .btn:active, .btn:focus {
     outline: none;
