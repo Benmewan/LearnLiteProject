@@ -36,3 +36,16 @@ def update_task_status_view(request:HttpRequest, task_id):
         print(e)
 
     return redirect("tasks:all_tasks_view")
+
+def edit_task_view(request:HttpRequest, task_id):
+    pass
+
+def delete_task_view(request:HttpRequest, task_id):
+    try:
+        task = Task.objects.get(pk=task_id)
+        task.delete()
+    except Task.DoesNotExist:
+        return render(request, "main/not_exist.html")
+    except Exception as e:
+        print(e)
+    return redirect("tasks:all_tasks_view")

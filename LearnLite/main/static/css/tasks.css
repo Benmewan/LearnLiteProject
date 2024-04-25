@@ -12,3 +12,8 @@
 .task_img{
   width: 140px;
 }
+
+
+.btn, .form-control {
+  height: auto;
+}
