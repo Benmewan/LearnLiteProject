@@ -62,7 +62,7 @@
                     </div>
                     <div class="d-flex gap-2">
                         <a class="btn btn-outline-danger  d-flex justify-content-center align-items-center" href="{% url 'tasks:delete_task_view' task.id %}"><span class="material-symbols-outlined">delete</span></a>
-                        <a class="btn btn-outline-primary  d-flex justify-content-center align-items-center" href=""><span class="material-symbols-outlined">edit</span></a>
+                        <a class="btn btn-outline-primary  d-flex justify-content-center align-items-center" href="{% url 'tasks:edit_task_view' task.id %}"><span class="material-symbols-outlined">edit</span></a>
                         <a class="btn btn-outline-success  d-flex justify-content-center align-items-center" href="{% url 'tasks:update_task_status_view' task.id %}"><span class="material-symbols-outlined">task_alt</span></a>
                     </div>
                 </div>

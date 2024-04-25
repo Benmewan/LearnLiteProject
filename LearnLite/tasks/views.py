@@ -38,7 +38,21 @@ def update_task_status_view(request:HttpRequest, task_id):
     return redirect("tasks:all_tasks_view")
 
 def edit_task_view(request:HttpRequest, task_id):
-    pass
+    try:
+        task = Task.objects.get(pk=task_id)
+    except Task.DoesNotExist:
+        return render(request, "main/not_exist.html")
+    if request.method == 'POST':
+        try:
+            task.title = request.POST['title']
+            task.description = request.POST['description']
+            task.due_date = request.POST['due_date']
+            task.is_done = request.POST['is_done']
+            task.save()
+            return redirect('tasks:all_tasks_view', task_id=task.id)
+        except Exception as e:
+            print(e)
+    return render(request, 'tasks/edit_task.html', {'task':task})
 
 def delete_task_view(request:HttpRequest, task_id):
     try:
