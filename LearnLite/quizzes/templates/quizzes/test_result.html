@@ -1,0 +1,20 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block style %}{% static 'css/quizzes.css' %}{% endblock style %}
+{% block content %}
+<h2>Test Results</h2>
+<p>You answered correctly {{ score }} out of {{ total_questions }} questions.</p>
+<p>Your score: {{ percentage }}%</p>
+
+<div class="results">
+    {% for result in results %}
+        <div class="{% if result.is_correct %}correct{% else %}incorrect{% endif %}">
+            <h4>{{ result.question_text }}</h4>
+            <p>Your answer: {{ result.user_answer | default:"No answer provided" }}</p>
+            <p>Correct answer: {{ result.correct_answer }}</p>
+        </div>
+    {% endfor %}
+</div>
+
+<a href="{% url 'quizzes:all_tests' %}">Back to tests</a>
+{% endblock %}

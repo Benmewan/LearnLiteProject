@@ -1,0 +1,34 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %}Upload Document{% endblock title %}
+
+{% block style %}{% static '' %}{% endblock style %}
+
+{% block content %}
+{% if messages %}
+    <ul class="messages">
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            Upload a Document to Generate Test
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data" class="form-inline">
+                {% csrf_token %}
+                <div class="form-group mb-2">
+                    <input type="file" class="form-control" name="document" required>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Upload and Generate Test</button>
+            </form>
+        </div>
+    </div>
+</div>
+<hr>
+<a href="{% url 'quizzes:all_tests' %}" class="btn btn-success">Saveed Tests</a>
+{% endblock content %}
