@@ -1,0 +1,27 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %}All Tests{% endblock title %}
+
+{% block style %}{% static 'css/summary.css' %}{% endblock style %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>All Generated Tests</h1>
+    {% if tests %}
+    <div class="card">
+        <ul class="list-group list-group-flush">
+        {% for test in tests %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Test ID: {{ test.id }} - Created at: {{ test.created_at|date:"D M d, Y" }}
+                <div>
+                    <a href="{% url 'quizzes:view_generated_test' test.id %}" class="btn btn-primary btn-sm">View Test</a>
+                </div>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% else %}
+        <p>No tests have been generated yet.</p>
+    {% endif %}
+</div>
+{% endblock content %}
