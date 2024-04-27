@@ -16,7 +16,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/main_style.css' %}">
   </head>
-  <body>
+{% block img %}
+<body {% if "mode" in request.COOKIES and request.COOKIES.mode == "dark" %} class="dark" {% endif %}>
+{% endblock %}
     <div class="sidebar">
         <div class="logo-details">
           <i class='bx bx-chip icon'></i>
@@ -76,13 +78,23 @@
            </a>
            <span class="tooltip">About us</span>
          </li>
+         {% if "mode" in request.COOKIES and request.COOKIES.mode == "dark" %}
          <li>
-            <a href="{% url 'main:about_view' %}">
+            <a href="{% url 'main:light_mode_view' %}?next={{ request.path }}">
                 <i class='bx bxs-sun'></i>
-              <span class="links_name">Light mode</span>
+              <span class="links_name">Light ode</span>
             </a>
-            <span class="tooltip">Light mode</span>
+            <span class="tooltip">Light Mode</span>
           </li>
+          {% else %}
+          <li>
+            <a href="{% url 'main:dark_mode_view' %}?next={{ request.path }}">
+                <i class='bx bx-moon'></i>
+              <span class="links_name">Dark Mode</span>
+            </a>
+            <span class="tooltip">Dark Mode</span>
+          </li>
+          {% endif %}
          <li class="profile">
              <div class="profile-details">
                 

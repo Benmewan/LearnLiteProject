@@ -29,3 +29,17 @@ def message_view(request:HttpRequest):
     messages = Contact.objects.all()
     
     return render(request, "main/message.html", {"messages" : messages})
+
+def dark_mode_view(request: HttpRequest):
+
+    response=redirect(request.GET.get("next"))
+    response.set_cookie("mode", "dark")
+
+    return response
+
+def light_mode_view(request: HttpRequest):
+
+    response=redirect(request.GET.get("next"))
+    response.set_cookie("mode", "light")
+
+    return response

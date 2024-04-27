@@ -9,6 +9,7 @@
             {% for message in messages %}
                 <div class="d-flex flex-column gap-2 border border-1 p-3 rounded-3">
                     <h4>{{ message.name }}</h4>
+                    <h5>Email:<a href="mailto:{{ message.email }}" class="text-decoration-none">{{ message.email }}</a></h5>
                     <p>{{ message.message }}</p>
                 </div>
             {% endfor %}
