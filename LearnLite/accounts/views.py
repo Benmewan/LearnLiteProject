@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 
+
 def register_user(request):
 #This Messgae will appear if user have some issues with sign up
     msg = None
@@ -52,3 +53,9 @@ def user_logout(request):
     if request.user.is_authenticated:
         logout(request)
     return redirect('accounts/login.html')  
+
+def profile(request):
+    return render(request, 'accounts/profile.html')
+
+def profile_settings(request):
+    return render(request, 'accounts/setting.html')
