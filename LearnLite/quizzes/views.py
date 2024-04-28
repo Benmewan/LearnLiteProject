@@ -17,7 +17,7 @@ if not API_KEY:
 
 @login_required
 def add_test(request):
-    print("Form submitted, method:", request.method)  # Check if we're getting a POST request
+    print("Form submitted, method:", request.method)  
     if request.method == 'POST' and request.FILES.get('document'):
         doc_file = request.FILES['document']
         new_doc = TestDocument(uploaded_by=request.user, file=doc_file)
@@ -72,14 +72,12 @@ def generate_test(document, text):
         print(error_msg)
         raise Exception(error_msg)
 
-
-
 def process_generated_test(questions_data, document):
     new_test = GeneratedTest(document=document, user=document.uploaded_by)
     new_test.save()
     
     for question_data in questions_data:
-        correct_answer = determine_correct_answer(question_data)  # Your function to determine the correct answer
+        correct_answer = determine_correct_answer(question_data)  
         Question.objects.create(
             test=new_test,
             question_text=question_data['text'],
@@ -96,9 +94,6 @@ def determine_correct_answer(question_data):
     longest = max(choices, key=len)
     return 'abcd'[choices.index(longest)]  
 
-
-
-
 def parse_questions_from_content(content):
     questions = []
     pattern = r'\d+\.\s(.*?)\?(.*?)(?=\d+\.|$)'
@@ -113,7 +108,6 @@ def parse_questions_from_content(content):
             })
     return questions
 
-
 @login_required
 def view_generated_test(request, test_id):
     test = get_object_or_404(GeneratedTest, id=test_id)
@@ -122,7 +116,6 @@ def view_generated_test(request, test_id):
         print("Q:", question.question_text)
         print("Choices:", question.choice_a, question.choice_b, question.choice_c, question.choice_d)
     return render(request, 'quizzes/generated_test.html', {'test': test, 'questions': questions})
-
 
 @login_required
 def submit_test(request, test_id):
@@ -155,14 +148,11 @@ def submit_test(request, test_id):
 
     return redirect('quizzes:all_tests')  
 
-
 @login_required
 def test_result(request, test_id):
     score = request.session.get('score', 0)
     total_questions = request.session.get('total_questions', 0)
     return render(request, 'quizzes/test_result.html', {'score': score, 'total_questions': total_questions})
-
-
 
 @login_required
 def save_test(request, test_id):
