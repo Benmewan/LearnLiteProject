@@ -73,40 +73,63 @@ def generate_test(document, text):
         raise Exception(error_msg)
 
 def process_generated_test(questions_data, document):
+    if not questions_data:
+        print("No questions data to process.")
+        return
+
     new_test = GeneratedTest(document=document, user=document.uploaded_by)
     new_test.save()
-    
+
     for question_data in questions_data:
-        correct_answer = determine_correct_answer(question_data)  
-        Question.objects.create(
+        question = Question.objects.create(
             test=new_test,
             question_text=question_data['text'],
             choice_a=question_data['choices'][0],
             choice_b=question_data['choices'][1],
             choice_c=question_data['choices'][2],
             choice_d=question_data['choices'][3],
-            correct_answer=correct_answer
+            correct_answer=question_data['correct_answer']
         )
+        print(f"Question created: {question.question_text} with choices {question.choice_a}, {question.choice_b}, {question.choice_c}, {question.choice_d}")
 
-def determine_correct_answer(question_data):
+    print(f"Total questions saved: {new_test.questions.count()}")
 
-    choices = question_data['choices']
-    longest = max(choices, key=len)
-    return 'abcd'[choices.index(longest)]  
 
 def parse_questions_from_content(content):
     questions = []
-    pattern = r'\d+\.\s(.*?)\?(.*?)(?=\d+\.|$)'
+    pattern = r'\d+\.\s(.*?)\?(.*?)(?=\d+\.|$)'  
     matches = re.finditer(pattern, content, re.DOTALL)
+
     for match in matches:
         question_text = match.group(1).strip()
-        choices_text = match.group(2).strip().split('\n')
-        if len(choices_text) >= 4:
-            questions.append({
-                'text': question_text,
-                'choices': [choice.strip() for choice in choices_text[:4]]
-            })
+        choices_text = match.group(2).strip().split('\n') if match.group(2) else []
+
+        print(f"Debug: Question '{question_text}' with choices {choices_text}")  
+
+        if len(choices_text) < 4:
+            print(f"Warning: Not enough choices for question '{question_text}'")
+            continue  
+
+        choices = [choice.strip() for choice in choices_text[:4]]
+        correct_answer = determine_correct_answer({'choices': choices}) 
+
+        questions.append({
+            'text': question_text,
+            'choices': choices,
+            'correct_answer': correct_answer
+        })
+
+    print(f"Parsed {len(questions)} questions")
     return questions
+
+def determine_correct_answer(question_data):
+    choices = question_data.get('choices', [])
+    try:
+        longest = max(choices, key=len)  
+        return 'abcd'[choices.index(longest)]
+    except ValueError:
+        print(f"Error determining correct answer for choices: {choices}")
+        return None 
 
 @login_required
 def view_generated_test(request, test_id):
