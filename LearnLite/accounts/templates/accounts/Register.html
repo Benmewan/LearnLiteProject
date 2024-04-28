@@ -1,94 +1,21 @@
-    {% extends "main/base.html" %}
-    {% load static %}
+{% extends "main/base.html" %}
+{% load static %}
 
-    {% block title %}
-        {% if is_login_page %}
-            Login
-        {% else %}
-            Sign Up
-        {% endif %}
-    {% endblock title %}
+{% block title %}Sign Up{% endblock title %}
 
-    {% block style %}
-        {% static 'css/tasks.css' %}
-    {% endblock style %}
+{% block style %}
+    {% static 'css/tasks.css' %}
+{% endblock style %}
 
-    {% block content %}
-    <!-- Pills navs -->
-    <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
-        <li class="nav-item" role="presentation">
-            <a class="nav-link {% if is_login_page %}active{% endif %}" id="tab-login" data-mdb-pill-init href="{% url 'accounts:user_login' %}" role="tab"
-                aria-controls="pills-login" aria-selected="{% if is_login_page %}true{% else %}false{% endif %}">Login</a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link {% if not is_login_page %}active{% endif %}" id="tab-register" data-mdb-pill-init href="{% url 'accounts:register_user' %}" role="tab"
-                aria-controls="pills-register" aria-selected="{% if not is_login_page %}true{% else %}false{% endif %}">Register</a>
-        </li>
-    </ul>
-    <!-- Pills navs -->
-    <form action="{% url 'accounts:register_user' %}" method="post">
-        {% csrf_token %}
-        <div class="text-center mb-3">
-        <p>Sign {% if is_login_page %}in{% else %}up{% endif %} with:</p>
-        
-        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><circle cx="4.983" cy="5.009" r="2.188"></circle><path d="M9.237 8.855v12.139h3.769v-6.003c0-1.584.298-3.118 2.262-3.118 1.937 0 1.961 1.811 1.961 3.218v5.904H21v-6.657c0-3.27-.704-5.783-4.526-5.783-1.835 0-3.065 1.007-3.568 1.96h-.051v-1.66H9.237zm-6.142 0H6.87v12.139H3.095z"></path></svg>      </button>
-
-        
-        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M20.283 10.356h-8.327v3.451h4.792c-.446 2.193-2.313 3.453-4.792 3.453a5.27 5.27 0 0 1-5.279-5.28 5.27 5.27 0 0 1 5.279-5.279c1.259 0 2.397.447 3.29 1.178l2.6-2.599c-1.584-1.381-3.615-2.233-5.89-2.233a8.908 8.908 0 0 0-8.934 8.934 8.907 8.907 0 0 0 8.934 8.934c4.467 0 8.529-3.249 8.529-8.934 0-.528-.081-1.097-.202-1.625z"></path></svg>      </button>
-        </button>
-        </div>
-
-        <p class="text-center">or:</p>
-
-        {% if not is_login_page %}
-            <!-- Name input -->
-            <div data-mdb-input-init class="form-outline mb-4">
-            <input type="text" id="registerName" class="form-control" />
-            <label class="form-label" for="registerName">Name</label>
-            </div>
-
-            <!-- Username input -->
-            <div data-mdb-input-init class="form-outline mb-4">
-            <input type="text" id="registerUsername" class="form-control" />
-            <label class="form-label" for="registerUsername">Username</label>
-            </div>
-        {% endif %}
-
-        <!-- Email input -->
-        <div data-mdb-input-init class="form-outline mb-4">
-        <input type="email" id="{% if is_login_page %}login{% else %}register{% endif %}Email" class="form-control" />
-        <label class="form-label" for="{% if is_login_page %}login{% else %}register{% endif %}Email">{% if is_login_page %}Email or username{% else %}Email{% endif %}</label>
-        </div>
-
-        <!-- Password input -->
-        <div data-mdb-input-init class="form-outline mb-4">
-        <input type="password" id="{% if is_login_page %}login{% else %}register{% endif %}Password" class="form-control" />
-        <label class="form-label" for="{% if is_login_page %}login{% else %}register{% endif %}Password">Password</label>
-        </div>
-
-        {% if not is_login_page %}
-            <!-- Repeat Password input -->
-            <div data-mdb-input-init class="form-outline mb-4">
-            <input type="password" id="registerRepeatPassword" class="form-control" />
-            <label class="form-label" for="registerRepeatPassword">Repeat password</label>
-            </div>
-        {% endif %}
-
-        {% if not is_login_page %}
-            <!-- Checkbox -->
-            <div class="form-check d-flex justify-content-center mb-4">
-            <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
-                aria-describedby="registerCheckHelpText" />
-            <label class="form-check-label" for="registerCheck">
-                I have read and agree to the terms
-            </label>
-            </div>
-        {% endif %}
-
-        <!-- Submit button -->
-        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-3">{% if is_login_page %}Sign in{% else %}Sign up{% endif %}</button>
-    </form>
-    <!-- Pills content -->
-    {% endblock %}
+{% block content %}
+<h1>Register</h1>
+<form method="post">
+    {% csrf_token %}
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <input type="text" name="first_name" placeholder="First Name">
+    <input type="text" name="last_name" placeholder="Last Name">
+    <button type="submit">Register</button>
+</form>
+</body>
+{% endblock %}

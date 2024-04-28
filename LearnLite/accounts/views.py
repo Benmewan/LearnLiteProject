@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
+from django.contrib import messages
+
 
 
 def register_user(request):
@@ -49,13 +51,15 @@ def user_login(request):
 
     return render(request, 'accounts/login.html', {'msg':msg})
 
-def user_logout(request):
-    if request.user.is_authenticated:
-        logout(request)
-    return redirect('accounts/login.html')  
-
 def profile(request):
     return render(request, 'accounts/profile.html')
 
 def profile_settings(request):
     return render(request, 'accounts/setting.html')
+
+
+
+def user_logout(request):
+    logout(request)
+    messages.info(request, 'Your session has ended.')
+    return redirect('accounts:user_login')
