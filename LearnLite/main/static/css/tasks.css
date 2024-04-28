@@ -12,3 +12,6 @@
 .task_img{
   width: 140px;
 }
+.description_p{
+  white-space: pre-line;
+}

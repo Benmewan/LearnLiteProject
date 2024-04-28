@@ -7,27 +7,27 @@
 {% block content %}
     <div class="row">
         <div class="col-md-12 mt-5">
-            <form class="d-flex flex-column gap-2 align-items-center" action="" method="get">
+            <form class="d-flex flex-column gap-2 align-items-center" action="{% url "tasks:all_tasks_view" %}" method="get">
 
                 <div class="d-flex justify-content-between gap-3 align-items-center w-100">
                     <div class="w-100 d-flex align-items-center gap-1">
                         <label for="filter_search" style="white-space: pre;">Search For Task:</label>
-                        <input id="filter_search" type="search" class="form-control w-100" name="search_query" placeholder="Title or Description...">
+                        <input id="filter_search" type="search" class="form-control w-100" name="search_query" placeholder="Title or Description..." value="{{ search_query }}">
                     </div>
                         
                     <div class="d-flex gap-2 align-items-center filter_options">
                         <label for="filter_options">Filter By:</label>
                         <div id="filter_options" class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="btnradio1" {% if not request.GET.btnradio %}checked{% endif %}>
                             <label class="btn btn-outline-primary" for="btnradio1">None</label>
                             
-                            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="btnradio2" {% if request.GET.btnradio == 'btnradio2' %}checked{% endif %}>
                             <label class="btn btn-outline-primary" for="btnradio2">Almost Due</label>
                             
-                            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" value="btnradio3" {% if request.GET.btnradio == 'btnradio3' %}checked{% endif %}>
                             <label class="btn btn-outline-primary" for="btnradio3">Newest</label>
-        
-                            <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+                
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" value="btnradio4" {% if request.GET.btnradio == 'btnradio4' %}checked{% endif %}>
                             <label class="btn btn-outline-primary" for="btnradio4">Finished</label>
                         </div>
                     </div>
@@ -43,30 +43,52 @@
             <a class="btn btn-outline-success  d-flex justify-content-center align-items-center" href="{% url 'tasks:add_task_view' %}"><span class="material-symbols-outlined">add</span></a>
         </div>
         <div class="col mt-2 d-flex flex-column gap-3 align-items-center">
-            {% for task in tasks %}
-                <div class="border shadow rounded-4 w-100 d-flex justify-content-between p-3 align-items-center">
-                    <div class="d-flex align-items-center gap-5">
-                        <div>
-                            <img class="task_img" src="{% static 'images/to-do-list.png' %}" alt="task img">
+            {% if tasks %}
+                {% for task in tasks %}
+                    <div class="border shadow rounded-4 w-100 d-flex justify-content-between p-3 align-items-center">
+                        <div class="d-flex align-items-center gap-5">
+                            <div>
+                                <img class="task_img" src="{% static 'images/to-do-list.png' %}" alt="task img">
+                            </div>
+                            <div class="d-flex flex-column gap-3">
+                                <h4>Task Title: <span class="text-muted">{{ task.title }}</span></h4>
+                                <p class="description_p"><b>Description:</b><br> {{task.description}}</p>
+                                <p class="">
+                                    {% if task.days_remaining_status == 'future' %}
+                                        {% if 'minutes' in task.days_remaining %}
+                                            <b class="text-dark">Minutes Remaining:</b> {{ task.days_remaining }}
+                                        {% elif 'hours' in task.days_remaining %}
+                                            <b class="text-dark">Hours Remaining:</b> {{ task.days_remaining }}
+                                        {% else %}
+                                            <b class="text-dark">Days Remaining:</b> {{ task.days_remaining }}
+                                        {% endif %}
+                                    {% else %}
+                                        <b class="text-dark">Date Has Passed:</b> {{ task.days_remaining }}
+                                    {% endif %}
+                                </p>
+                                <p><b>Due Date:</b> {{task.due_date}}</p>
+                                {% if not task.is_done %}
+                                    <p class="text-danger"><b class="text-dark">Status:</b> Incomplete</p>
+                                {% else %}
+                                    <p class="text-success"><b class="text-dark">Status:</b> Complete</p>
+                                {% endif %}
+                            </div>
                         </div>
-                        <div class="d-flex flex-column gap-3">
-                            <h4>Course: {{task.title}}</h4>
-                            <p><b>Description:</b> {{task.description}}</p>
-                            <p><b>Due Date:</b> {{task.due_date}}</p>
-                            {% if not task.is_done %}
-                                <p class="text-danger"><b class="text-dark">Status:</b> Incomplete</p>
+                        <div class="d-flex gap-2">
+                            <a class="btn btn-outline-danger  d-flex justify-content-center align-items-center" href="{% url 'tasks:delete_task_view' task.id %}"><span class="material-symbols-outlined">delete</span></a>
+                            <a class="btn btn-outline-primary  d-flex justify-content-center align-items-center" href="{% url 'tasks:edit_task_view' task.id %}"><span class="material-symbols-outlined">edit</span></a>
+                            {% if task.is_done %}
+                            <a class="btn btn-outline-success  d-flex justify-content-center align-items-center" href="{% url 'tasks:update_task_status_to_false_view' task.id %}"><span class="material-symbols-outlined">task_alt</span></a>
                             {% else %}
-                                <p class="text-success"><b class="text-dark">Status:</b> Complete</p>
+                            <a class="btn btn-outline-success  d-flex justify-content-center align-items-center" href="{% url 'tasks:update_task_status_to_true_view' task.id %}"><span class="material-symbols-outlined">unpublished</span></a>
                             {% endif %}
                         </div>
                     </div>
-                    <div class="d-flex gap-2">
-                        <a class="btn btn-outline-danger  d-flex justify-content-center align-items-center" href="{% url 'tasks:delete_task_view' task.id %}"><span class="material-symbols-outlined">delete</span></a>
-                        <a class="btn btn-outline-primary  d-flex justify-content-center align-items-center" href="{% url 'tasks:edit_task_view' task.id %}"><span class="material-symbols-outlined">edit</span></a>
-                        <a class="btn btn-outline-success  d-flex justify-content-center align-items-center" href="{% url 'tasks:update_task_status_view' task.id %}"><span class="material-symbols-outlined">task_alt</span></a>
-                    </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <h6>You don't have any tasks.</6>
+            {% endif %}
         </div>
     </div>
+    <hr>
 {% endblock content %}
