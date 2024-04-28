@@ -106,8 +106,8 @@
                   <span class="links_name p-3">{{request.user.username }}</span>
                 </a>
                 {% else %}
-                <a href="{% url 'accounts:register_user' %}">
-                  <span class="links_name p-3">Sign in</span>
+                <a href="{% url 'accounts:user_login' %}">
+                  <span class="links_name p-3">Log in</span>
                 </a>
                 {% endif %}
                </div>
