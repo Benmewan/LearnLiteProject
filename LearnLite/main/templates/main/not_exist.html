@@ -1,7 +1,16 @@
 {% extends "main/base.html" %}
+{% load static %}
 
-{% block title %}Not Exist{% endblock title %}
+{% block title %}Page Not Found{% endblock title %}
 
 {% block style %}{% endblock style %}
 
-{% block content %}{% endblock content %}
+{% block content %}
+    <div class="row justify-content-center align-items-center vh-100">
+        <div class="col text-center mt-5">
+        <h1 class="display-1">ERROR 404</h1>
+        <h3>Woops. Looks like this page doesn't exist.</h3>
+        <h4>You should go to the <a href="#" onclick="history.go(-1); return false;"><button class=" btn btn-dark">Previous Page</button></a></h4>
+        </div>
+    </div>
+{% endblock content %}

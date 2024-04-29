@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.contrib import messages
+from .models import UserProfileForm
 
 
 
@@ -34,29 +35,35 @@ def register_user(request):
     return render(request, 'accounts/register.html', {'msg':msg})
 
 def user_login(request):
-#the message will appear if the user enter wrong data
-    msg = None
-
     if request.method == 'POST':
-
-        #Authenticate the user by username and password
-        user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
-
-        #this is means if user exist    
-        if user:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
             login(request, user)
-            return redirect('main:index_view')
+            return redirect('main:index_view')  # Redirect to the home page upon successful login
         else:
-            msg = "Username or Password is wrong, Please try Again!!"
+            messages.error(request, "Incorrect username or password. Please try again.")
 
-    return render(request, 'accounts/login.html', {'msg':msg})
+    return render(request, 'accounts/login.html')
+
+
 
 def profile(request):
     return render(request, 'accounts/profile.html')
 
 def profile_settings(request):
-    return render(request, 'accounts/setting.html')
-
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully.')
+            return redirect('accounts:profile')  # Redirect to the same page after successful submission
+        else:
+            messages.error(request, 'Failed to update profile. Please correct the errors.')
+    else:
+        form = UserProfileForm(instance=request.user)
+    return render(request, 'accounts/settings.html', {'form': form})  # Corrected template name
 
 
 def user_logout(request):
