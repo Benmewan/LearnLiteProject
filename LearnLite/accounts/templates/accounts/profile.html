@@ -4,7 +4,7 @@
 {% block title %}Profile{% endblock title %}
 
 {% block style %}
-    {% static 'css/tasks.css' %}
+    {% static 'css/accounts.css' %}
 {% endblock style %}
 
 {% block content %}
@@ -13,18 +13,14 @@
         <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                 <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                <span class="font-weight-bold">Admin</span>
-                <span class="text-black-50">LearnLite@gmail.com</span>
+                <span class="font-weight-bold">{{ user.username }}</span>
+                <span class="text-black-50">{{ user.email }}</span>
                 <span></span>
-                
-                <div class="recent-border mt-4">
-                    <span class="recent-orders"><a href="" class="text-decoration-none">Recent orders</a></span>
-                </div>
-    
+
                 <div class="Update Profile-border pt-2">
                     <span class="Update Profile"><a href="{% url 'accounts:profile_settings' %}" class="text-decoration-none">Update Profile</a></span>
                 </div>
-    
+
                 <div class="Security-border pt-2">
                     <span class="Security"><a href="" class="text-decoration-none">Security</a></span>
                 </div>

@@ -4,7 +4,7 @@
 {% block title %}Settings{% endblock title %}
 
 {% block style %}
-    {% static 'css/tasks.css' %}
+    {% static 'css/accounts.css' %}
 {% endblock style %}
 
 {% block content %}
@@ -13,22 +13,37 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Profile Settings</h4>
         </div>
-        <div class="row mt-2">
-            <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value=""></div>
-            <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" value="" placeholder="surname"></div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
-            <div class="col-md-12"><label class="labels">State</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-            <div class="col-md-12"><label class="labels">Area</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-            <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" placeholder="enter email id" value=""></div>
-            <div class="col-md-12"><label class="labels">Education</label><input type="text" class="form-control" placeholder="education" value=""></div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value=""></div>
-            <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state"></div>
-        </div>
-        <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
+        <form method="post" class="user-form">
+            {% csrf_token %}
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <label class="labels">Name</label>
+                    <input type="text" class="form-control" name="first_name" placeholder="First name" value="{{ user.first_name }}">
+                </div>
+                <div class="col-md-6">
+                    <label class="labels">Surname</label>
+                    <input type="text" class="form-control" name="last_name" value="{{ user.last_name }}" placeholder="Surname">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <label class="labels">Username</label>
+                    <input type="text" class="form-control" name="username" placeholder="Username" value="{{ user.username }}">
+                </div>
+                <div class="col-md-12">
+                    <label class="labels">Mobile Number</label>
+                    <input type="text" class="form-control" name="mobile_number" placeholder="Enter phone number" value="{{ user.profile.mobile_number }}">
+                </div>
+                <div class="col-md-12">
+                    <label class="labels">Email</label>
+                    <input type="email" class="form-control" name="email" placeholder="Enter email" value="{{ user.email }}">
+                </div>
+            </div>
+           
+            <div class="mt-5 text-center">
+                <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
+            </div>
+        </form>
     </div>
 </div>
 {% endblock %}
