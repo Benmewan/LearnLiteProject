@@ -283,7 +283,7 @@
 }
 
 .sidebar.open .bx-search:hover{
-  background: #e2e4ce;
+  background: #fff;
   color: #fff;
 }
 
@@ -293,7 +293,7 @@
 }
 
 .sidebar .bx-search:hover{
-  background: #fff;
+  background: #000;
   color: #000;
 }
 
@@ -366,7 +366,7 @@
 }
 
 .dark .sidebar li a:hover .links_name,
-.sidebar li a:hover i{
+.sidebar li a:hover .bx-search:hover{
   transition: all 0.5s ease;
   color: #000;
 }
