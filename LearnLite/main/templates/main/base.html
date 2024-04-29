@@ -106,8 +106,8 @@
                   <span class="links_name p-3">{{request.user.username }}</span>
                 </a>
                 {% else %}
-                <a href="{% url 'accounts:user_login' %}">
-                  <span class="links_name p-3">Log in</span>
+                <a href="{% url 'accounts:register_user' %}">
+                  <span class="links_name p-3">Sign Up</span>
                 </a>
                 {% endif %}
                </div>
@@ -115,7 +115,7 @@
              {% if request.user.is_authenticated %}
              <a href="{% url 'accounts:user_logout' %}"><i class='bx bx-log-out' id="log_out" ></i></a>
              {% else %}
-             <a href="{% url 'accounts:user_login' %}"><i class='bx bx-log-in' id="log_out"></i></i></a>
+             <a href="{% url 'accounts:user_login' %}"><i class='bx bx-log-in' id="log_out"></i></a>
              {% endif %}
          </li>
         </ul>

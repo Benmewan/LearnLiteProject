@@ -283,7 +283,7 @@
 }
 
 .sidebar.open .bx-search:hover{
-  background: #e2e4ce;
+  background: #fff;
   color: #fff;
 }
 
@@ -293,7 +293,7 @@
 }
 
 .sidebar .bx-search:hover{
-  background: #fff;
+  background: #000;
   color: #000;
 }
 
@@ -349,6 +349,7 @@
   pointer-events: none;
   transition: 0.4s;
 }
+
 .sidebar.open li a .links_name{
   opacity: 1;
   pointer-events: auto;
@@ -359,14 +360,22 @@
   pointer-events: auto;
 }
 
-.sidebar li a:hover .links_name,
+.sidebar li a:hover .links_name{
+  transition: all 0.5s ease;
+  color: #fff;
+}
+
 .sidebar li a:hover i{
   transition: all 0.5s ease;
   color: #fff;
 }
 
-.dark .sidebar li a:hover .links_name,
-.sidebar li a:hover i{
+.dark .sidebar li a:hover .links_name {
+  transition: all 0.5s ease;
+  color: #000;
+}
+
+.dark .sidebar li a:hover i{
   transition: all 0.5s ease;
   color: #000;
 }
@@ -497,6 +506,25 @@
 
 .sidebar .profile #log_out{
   color: #000;
+}
+.sidebar .profile #log_out:hover {
+  color: #FFF;
+  background-color: #000;
+}
+
+.dark .sidebar .profile #log_out:hover {
+  color: #000;
+  background-color: #fff;
+}
+
+.sidebar.open .profile #log_out:hover {
+  color: #FFF;
+  background-color: #000;
+}
+
+.dark .sidebar.open .profile #log_out:hover {
+  color: #000;
+  background-color: #fff;
 }
 
 .dark .sidebar .profile #log_out{
