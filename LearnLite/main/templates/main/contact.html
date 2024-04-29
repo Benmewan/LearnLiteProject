@@ -3,64 +3,45 @@
 {% block title %} Contact us {% endblock %}
 
 {% block content %}
-<div class="content">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-5 mr-auto">
-                <h2>Contact Us</h2>
-                {% if request.user.is_superuser %}
-                <h2><a href="{% url 'main:message_view' %}" class="text-decoration-none">Guests messages</a></h2>
-                {% endif %}
-                <p class="mb-5"></p>
-                <ul class="list-unstyled pl-md-5 mb-5">
-                <li class="d-flex text-black mb-2">
+<div class="row justify-content-center align-items-center vh-100">
+    <div class="col">
+        <h2>Contact Us</h2>
+        <ul class="list-unstyled pl-md-5 mb-5">
+            <li class="d-flex text-black mb-2">
                 <span class="mr-3"><span class="icon-map"></span></span> Riyadh, <br> Kingdom of Saudi Arabia
-                </li>
-                <li class="d-flex text-black mb-2"><span class="mr-3"><span class="icon-phone"></span></span> +966 50 XXX XXXX</li>
-                <li class="d-flex text-black"><span class="mr-3"><span class="icon-envelope-o"></span></span> contact@learnlite.com</li>
-                </ul>
-            </div>
-            <div class="col-md-6">
-                <form action="{% url 'main:contact_view' %}" class="mb-5" method="post" enctype="multipart/form-data" id="contactForm" name="contactForm">
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-12 form-group">
-                            <label for="name" class="col-form-label">Name</label>
-                            <input type="text" class="form-control contact_us_text_input" name="name" id="name">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 form-group">
-                            <label for="email" class="col-form-label">Email</label>
-                            <input type="text" class="form-control contact_us_text_input" name="email" id="email">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 form-group">
-                            <label for="message" class="col-form-label">Message</label>
-                            <textarea class="form-control contact_us_text_input" name="message" id="message" cols="30" rows="7"></textarea>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="submit" value="submit" class="btn btn-primary contact_us_submit_button rounded-0 py-2 px-4">
-                            <span class="submitting"></span>
-                        </div>
-                    </div>
-                </form>
-                <div id="form-message-warning mt-4"></div>
-                    <div id="form-message-success">
-                        Your message was sent, thank you!
-                    </div>
+            </li>
+            <li class="d-flex text-black mb-2"><span class="mr-3"><span class="icon-phone"></span></span> +966 50 XXX XXXX</li>
+            <li class="d-flex text-black"><span class="mr-3"><span class="icon-envelope-o"></span></span> contact@learnlite.com</li>
+        </ul>
+    </div>
+    <div class="col-md-6 pl-md-0">
+        <form action="{% url 'main:contact_view' %}" class="d-flex flex-column gap-2 border border-1 shadow p-3 rounded-4 h-100 main_boxs" method="post" enctype="multipart/form-data" id="contactForm" name="contactForm">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label for="name" class="col-form-label">Name</label>
+                    <input type="text" class="form-control" name="name" id="name">
                 </div>
-        </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label for="email" class="col-form-label">Email</label>
+                    <input type="text" class="form-control" name="email" id="email">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label for="message" class="col-form-label">Message</label>
+                    <textarea class="form-control" name="message" id="message" cols="30" rows="7"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="submit" value="Submit" class="btn btn-primary rounded-0 py-2 px-4">
+                    <span class="submitting"></span>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.validate.min.js"></script>
-    <script src="js/main.js"></script>
-    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v55bfa2fee65d44688e90c00735ed189a1713218998793" integrity="sha512-FIKRFRxgD20moAo96hkZQy/5QojZDAbyx0mQ17jEGHCJc/vi0G2HXLtofwD7Q3NmivvP9at5EVgbRqOaOQb+Rg==" data-cf-beacon='{"rayId":"8794c26f0d6a4c39","version":"2024.4.0","token":"cd0b4b3a733644fc843ef0b185f98241"}' crossorigin="anonymous"></script>
-    
 {% endblock %}

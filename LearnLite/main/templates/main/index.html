@@ -22,21 +22,21 @@
     <div class="mid_section">
         <div class="row g-5">
             <div class="col-4">
-                <div class="d-flex flex-column gap-2 border border-1 shadow p-3 rounded-4 h-100">
+                <div class="d-flex flex-column gap-2 border border-1 shadow p-3 rounded-4 h-100 main_boxs">
                     <img src="{% static 'images/fast.png' %}" class="w-100 rounded-4 card-poster img-thumbnail"/>
                     <h2>Fast</h2>
                     <h5>Fast and accurt processing of the document.</h5>
                 </div>
             </div>
             <div class="col-4">
-                <div class="d-flex flex-column gap-2 border border-1 shadow p-3 rounded-4 h-100">
+                <div class="d-flex flex-column gap-2 border border-1 shadow p-3 rounded-4 h-100 main_boxs">
                     <img src="{% static 'images/ai_icon.webp' %}" class="w-100 rounded-4 card-poster img-thumbnail"/>
                     <h2>You can use AI</h2>
                     <h5>Use AI to make summary or generated test from you subject </h5>
                 </div>
             </div>
             <div class="col-4">
-                <div class="d-flex flex-column gap-2 border border-1 shadow p-3 rounded-4 h-100">
+                <div class="d-flex flex-column gap-2 border border-1 shadow p-3 rounded-4 h-100 main_boxs">
                     <img src="{% static 'images/book.png' %}" class="w-100 rounded-4 card-poster img-thumbnail"/>
                     <h2>simplicity the hard studying</h2>
                     <h5>We can make it easier for you, study smart not hard </h5>
@@ -51,8 +51,8 @@
     <div class="bottom_section">
         <div class="row g-5">
             <div class="col-6">
-                <a href="{% url 'summary:add_summary' %}" class="text-decoration-none text-black">
-                <div class="d-flex flex-column gap-2 border border-1 shadow p-3 rounded-4 h-100 align-items-center">
+                <a href="{% url 'summary:add_summary' %}" class="text-decoration-none text-black ">
+                <div class="d-flex flex-column gap-2 border border-1 shadow p-3 rounded-4 h-100 align-items-center main_boxs">
                     <img src="{% static 'images/summary.jpeg' %}" class="w-75 rounded-4 card-poster"/>
                     <h2>Summary</h2>
                     <h5>Generate a summary or a brief about the subject.</h5>
@@ -61,7 +61,7 @@
             </div>
             <div class="col-6">
                 <a href="{% url 'quizzes:add_test' %}" class="text-decoration-none text-black">
-                <div class="d-flex flex-column gap-2 border border-1 shadow p-3 rounded-4 h-100 align-items-center">
+                <div class="d-flex flex-column gap-2 border border-1 shadow p-3 rounded-4 h-100 align-items-center main_boxs">
                     <img src="{% static 'images/quiz.jpg' %}" class="w-100 rounded-4 card-poster"/>
                     <h2 class="pt-5">Quizzes</h2>
                     <h5>Generate a quiz about the subject.</h5>
