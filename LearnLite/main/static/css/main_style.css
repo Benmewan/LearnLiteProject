@@ -498,6 +498,25 @@
 .sidebar .profile #log_out{
   color: #000;
 }
+.sidebar .profile #log_out:hover {
+  color: #FFF;
+  background-color: #000;
+}
+
+.dark .sidebar .profile #log_out:hover {
+  color: #000;
+  background-color: #fff;
+}
+
+.sidebar.open .profile #log_out:hover {
+  color: #FFF;
+  background-color: #000;
+}
+
+.dark .sidebar.open .profile #log_out:hover {
+  color: #000;
+  background-color: #fff;
+}
 
 .dark .sidebar .profile #log_out{
   color: #fff;
