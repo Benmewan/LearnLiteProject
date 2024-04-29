@@ -2,24 +2,18 @@
 {% load static %}
 {% block title %}Upload Document{% endblock title %}
 
-{% block style %}{% static '' %}{% endblock style %}
+{% block style %}
+{% static 'css/quizzes.css' %}
+{% endblock style %}
 
 {% block content %}
-{% if messages %}
-    <ul class="messages">
-    {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-    </ul>
-{% endif %}
-
 <div class="container mt-4">
     <div class="card">
         <div class="card-header">
             Upload a Document to Generate Test
         </div>
         <div class="card-body">
-            <form method="post" enctype="multipart/form-data" class="form-inline">
+            <form method="post" enctype="multipart/form-data" class="form-inline" id="uploadForm">
                 {% csrf_token %}
                 <div class="form-group mb-2">
                     <input type="file" class="form-control" name="document" required>
@@ -30,5 +24,21 @@
     </div>
 </div>
 <hr>
-<a href="{% url 'quizzes:all_tests' %}" class="btn btn-success">Saveed Tests</a>
+<a href="{% url 'quizzes:all_tests' %}" class="btn btn-success">Saved Tests</a>
+
+<div id="overlay" class="overlay">
+    <div class="overlay-content">Generating test... Please wait.</div>
+</div>
+
+<script>
+document.getElementById('uploadForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form from submitting immediately
+    var overlay = document.getElementById('overlay');
+    overlay.style.display = 'block'; // Show the overlay
+
+    setTimeout(() => {
+        this.submit(); // Submit form after the overlay is displayed
+    }, 100); // short delay to ensure the overlay is shown
+});
+</script>
 {% endblock content %}

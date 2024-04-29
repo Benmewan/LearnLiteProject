@@ -1,18 +1,21 @@
 {% extends "main/base.html" %}
 {% load static %}
+
 {% block title %}Upload Document{% endblock title %}
 
-{% block style %}{% static 'css/summary.css' %}{% endblock style %}
+{% block style %}
+{% static 'css/summary.css' %}
+{% endblock style %}
 
 {% block content %}
-<div style="min-height: 100vh ;" class=" mt-5">
+<div style="min-height: 100vh;" class="mt-5">
     <a href="{% url 'summary:list_summaries' %}" class="btn btn-info mb-3">All Summaries</a>
     <div class="card">
         <div class="card-header">
             <h1>Upload a PDF Document</h1>
         </div>
         <div class="card-body">
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" id="uploadForm">
                 {% csrf_token %}
                 <div class="mb-3">
                     <input type="file" name="document" class="form-control" required>
@@ -23,9 +26,25 @@
                         <option value="detailed">Detailed</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Generate Summary</button>
+                <button type="submit" class="btn btn-primary" id="submitBtn">Generate Summary</button>
             </form>
         </div>
     </div>
 </div>
+
+<div id="overlay" class="overlay">
+    <div class="overlay-content">Generating summary... Please wait.</div>
+</div>
+
+<script>
+document.getElementById('uploadForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form from submitting immediately
+    var overlay = document.getElementById('overlay');
+    overlay.style.display = 'block'; // Show the overlay
+
+    setTimeout(() => {
+        this.submit(); // Submit form after the overlay is displayed
+    }, 100); // short delay to ensure the overlay is shown
+});
+</script>
 {% endblock content %}
