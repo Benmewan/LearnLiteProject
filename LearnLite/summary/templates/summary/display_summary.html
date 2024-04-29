@@ -2,14 +2,15 @@
 {% load static %}
 {% block title %}Summary Details{% endblock title %}
 
-{% block style %}{% static 'css/tasks.css' %}{% endblock style %}
+{% block style %}{% static 'css/summary.css' %}{% endblock style %}
 
 {% block content %}
-<div style="min-height: 100vh ;" class=" mt-5">
+<div style="min-height: 100vh;" class="mt-5">
     <h1>Summary Details</h1>
     <div class="card">
         <div class="card-body" style="background-color: #f8f9fa;">
-            <p>{{ summary.content }}</p>
+            <!-- Convert newlines to <br> tags -->
+            <p>{{ summary.content|linebreaksbr }}</p>
         </div>
     </div>
     <div class="mt-3">
@@ -19,3 +20,4 @@
     </div>
 </div>
 {% endblock content %}
+

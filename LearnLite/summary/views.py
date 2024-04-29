@@ -57,19 +57,23 @@ def get_completion(prompt):
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
         raise ValueError("API key is not available")
-    
+
     openai.api_key = api_key  # Ensure the API key is set
+    structured_prompt = f"Summarize the following content clearly with bullet points or numbered sections: {prompt}"
 
     try:
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo", 
-            messages=[{"role": "system", "content": "You are a helpful assistant."}, 
-                      {"role": "user", "content": prompt}],
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant, please summarize the text in a structured format."},
+                {"role": "user", "content": structured_prompt}
+            ],
         )
         return response['choices'][0]['message']['content'].strip()
     except Exception as e:
         print(f"Failed to generate completion with chat model: {str(e)}")
         raise
+
 
 def display_summary(request, summary_id):
     summary = get_object_or_404(Summary, id=summary_id)
