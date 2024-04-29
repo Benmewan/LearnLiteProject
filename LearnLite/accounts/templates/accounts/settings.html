@@ -1,7 +1,9 @@
 {% extends "main/base.html" %}
 {% load static %}
 
-{% block title %}Settings{% endblock title %}
+{% block title %}
+    Settings
+{% endblock title %}
 
 {% block style %}
     {% static 'css/accounts.css' %}
@@ -13,7 +15,7 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Profile Settings</h4>
         </div>
-        <form method="post" class="user-form">
+        <form method="post" action="{% url 'accounts:profile_settings' %}" class="user-form">
             {% csrf_token %}
             <div class="row mt-2">
                 <div class="col-md-6">
@@ -39,7 +41,6 @@
                     <input type="email" class="form-control" name="email" placeholder="Enter email" value="{{ user.email }}">
                 </div>
             </div>
-           
             <div class="mt-5 text-center">
                 <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
             </div>
