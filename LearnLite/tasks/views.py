@@ -4,7 +4,6 @@ from .models import Task
 from django.utils import timezone
 from datetime import timedelta
 import datetime
-from celery import shared_task
 from django.core.mail import send_mail
 # Create your views here.
 def all_tasks_view(request:HttpRequest):
@@ -132,20 +131,3 @@ def delete_task_view(request:HttpRequest, task_id):
         print(e)
     return redirect("tasks:all_tasks_view")
 
-# @shared_task
-# def send_task_reminders():
-#     # Get tasks nearing their due date (e.g., within the next 24 hours)
-#     tasks = Task.objects.filter(
-#         due_date__gt=timezone.now(),
-#         due_date__lte=timezone.now() + timezone.timedelta(days=1)
-#     )
-
-#     for task in tasks:
-#         # Send email reminder to the user
-#         send_mail(
-#             'Task Reminder',
-#             f'Your task "{task.title}" is due soon. Please complete it.',
-#             'your_email@example.com',  # Sender's email
-#             [task.user.email],  # Recipient's email
-#             fail_silently=False,
-#         )
