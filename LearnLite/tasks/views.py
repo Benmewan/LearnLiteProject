@@ -4,32 +4,33 @@ from .models import Task
 from django.utils import timezone
 from datetime import timedelta
 import datetime
+from celery import shared_task
+from django.core.mail import send_mail
 # Create your views here.
 def all_tasks_view(request:HttpRequest):
     # Fetch all tasks by default
     tasks = Task.objects.all()
-
-    # Get the search query from the request
-    search_query = request.GET.get('search_query')
-
-    # Filter tasks by search query if it exists
-    if search_query:
-        tasks = tasks.filter(title__icontains=search_query) | tasks.filter(description__icontains=search_query)
-
-    # Get the selected radio button value from the request
+    
     filter_option = request.GET.get('btnradio')
 
-    # Filter tasks based on the selected radio button
-    if filter_option == 'btnradio2':  # Almost Due
-        now = timezone.now()
-        almost_due_date = now + timedelta(days=3)
-        tasks = tasks.filter(due_date__lte=almost_due_date, is_done=False)
-        tasks = tasks.filter(due_date__lte=almost_due_date)  # Filter tasks due within the calculated range
-    elif filter_option == 'btnradio3':  # Newest
-        tasks = tasks.order_by('-created_at')  # Order tasks by newest first
-    elif filter_option == 'btnradio4':  # Finished
-        tasks = tasks.filter(is_done=True)  # Filter tasks that are finished
+    if filter_option not in ['btnradio1', 'btnradio2', 'btnradio3']:
+        # Set a default value or handle the case when 'filter_option' is not set correctly
+        filter_option = 'btnradio1'
     
+    current_datetime = timezone.now()
+
+    # Apply filtering based on the selected radio button
+    if filter_option == 'btnradio1':  # Today
+        tasks = tasks.filter(
+            due_date__gt=current_datetime,
+            due_date__lte=current_datetime + timedelta(hours=24)
+        )
+    elif filter_option == 'btnradio2':  # Upcoming
+        tasks = tasks.filter(due_date__gt=current_datetime + timedelta(hours=24))
+    elif filter_option == 'btnradio3':  # Past
+        tasks = tasks.filter(due_date__lt=current_datetime)
+
+
     current_datetime = timezone.now()
     for task in tasks:
         time_difference = task.due_date - current_datetime
@@ -130,3 +131,21 @@ def delete_task_view(request:HttpRequest, task_id):
     except Exception as e:
         print(e)
     return redirect("tasks:all_tasks_view")
+
+# @shared_task
+# def send_task_reminders():
+#     # Get tasks nearing their due date (e.g., within the next 24 hours)
+#     tasks = Task.objects.filter(
+#         due_date__gt=timezone.now(),
+#         due_date__lte=timezone.now() + timezone.timedelta(days=1)
+#     )
+
+#     for task in tasks:
+#         # Send email reminder to the user
+#         send_mail(
+#             'Task Reminder',
+#             f'Your task "{task.title}" is due soon. Please complete it.',
+#             'your_email@example.com',  # Sender's email
+#             [task.user.email],  # Recipient's email
+#             fail_silently=False,
+#         )
