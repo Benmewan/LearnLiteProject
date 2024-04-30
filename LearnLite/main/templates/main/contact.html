@@ -15,7 +15,7 @@
         </ul>
     </div>
     <div class="col-md-6 pl-md-0">
-        <form action="{% url 'main:contact_view' %}" class="d-flex flex-column gap-2 border border-1 shadow p-3 rounded-4 h-100 main_boxs" method="post" enctype="multipart/form-data" id="contactForm" name="contactForm">
+        <form action="{% url 'main:contact_view' %}" class="d-flex flex-column gap-2 border border-1 shadow p-3 rounded-4 h-100 contact_us_box main_boxs" method="post" enctype="multipart/form-data" id="contactForm" name="contactForm">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-12 form-group">
