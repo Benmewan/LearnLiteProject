@@ -61,25 +61,10 @@
             <span class="links_name">User Messages</span>
           </a>
            <span class="tooltip">User Messages</span>
-        </li>
-          {% else %}
-          <li>
-            <a href="{% url 'main:contact_view' %}">
-              <i class='bx bxs-contact'></i>
-              <span class="links_name">Contact us</span>
-            </a>
-             <span class="tooltip">Contact us</span>
           </li>
           {% endif %}
-         <li>
-           <a href="{% url 'main:about_view' %}">
-            <i class='bx bx-info-circle'></i>
-             <span class="links_name">About us</span>
-           </a>
-           <span class="tooltip">About us</span>
-         </li>
-         {% if "mode" in request.COOKIES and request.COOKIES.mode == "dark" %}
-         <li>
+          {% if "mode" in request.COOKIES and request.COOKIES.mode == "dark" %}
+          <li>
             <a href="{% url 'main:light_mode_view' %}?next={{ request.path }}">
                 <i class='bx bxs-sun'></i>
               <span class="links_name">Light ode</span>
@@ -95,24 +80,24 @@
             <span class="tooltip">Dark Mode</span>
           </li>
           {% endif %}
+          <hr/>
+          <li>
+            <a href="{% url 'accounts:Subscribe' %}">
+              <i class='bx bxs-dollar-circle'></i>
+              <span class="links_name">Subscription</span>
+            </a>
+             <span class="tooltip">Subscription</span>
+            </li>
           {% if request.user.is_authenticated %}
           <li>
-            <a href="{% url 'accounts:profile' %}">
+            <a href="{% url 'accounts:profile_settings' %}">
               <i class='bx bx-user'></i>
-              <span class="links_name">{{user.username}}</span>
+              <span class="links_name">Edit Profile</span>
             </a>
-            <span class="tooltip">{{user.username}}</span>
-          </li>
-          {% else %}
-          <li>
-            <a href="{% url 'accounts:user_login' %}">
-              <i class='bx bx-user'></i>
-              <span class="links_name">Profile</span>
-            </a>
-            <span class="tooltip">Profile</span>
+            <span class="tooltip">Edit Profile</span>
           </li>
           {% endif %}
-         <li class="profile">
+
              {% if request.user.is_authenticated %}
              <li>
               <a href="{% url 'accounts:user_logout' %}">
@@ -124,13 +109,13 @@
              {% else %}
              <li>
               <a href="{% url 'accounts:user_login' %}">
-                <i class='bx bx-log-out'></i>
+                <i class='bx bx-log-in'></i>
                 <span class="links_name">Log in</span>
               </a>
               <span class="tooltip">Log in</span>
             </li>
              {% endif %}
-         </li>
+          </li>
         </ul>
       </div>
       <script>
