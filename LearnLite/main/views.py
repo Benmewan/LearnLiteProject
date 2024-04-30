@@ -43,3 +43,5 @@ def light_mode_view(request: HttpRequest):
     response.set_cookie("mode", "light")
 
     return response
+def not_exist(request):
+    return render(request, 'not_exist.html')

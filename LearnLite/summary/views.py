@@ -7,10 +7,8 @@ from dotenv import load_dotenv
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import Http404, HttpResponse
 from django.core.paginator import Paginator
-
-
 
 dotenv_path = os.path.join(os.path.dirname(__file__), 'key.env')
 load_dotenv(dotenv_path=dotenv_path)
@@ -74,22 +72,17 @@ def get_completion(prompt):
         print(f"Failed to generate completion with chat model: {str(e)}")
         raise
 
-
 def display_summary(request, summary_id):
-    summary = get_object_or_404(Summary, id=summary_id)
-    return render(request, 'summary/display_summary.html', {'summary': summary})
-
-
-def view_summary(request, summary_id):
-    summary = get_object_or_404(Summary, id=summary_id, user=request.user)
-    return render(request, 'summary/detail.html', {'summary': summary})
+    try:
+        summary = get_object_or_404(Summary, id=summary_id)
+        return render(request, 'summary/display_summary.html', {'summary': summary})
+    except Http404:
+        return redirect('main:not_exist')
 
 @login_required
 def list_summaries(request):
-    # Fetch only summaries created by the logged-in user
     summaries = Summary.objects.filter(user=request.user)
     return render(request, 'summary/list_summaries.html', {'summaries': summaries})
-
 
 def save_summary(request, summary_id):
     return redirect('summary:list_summaries')
