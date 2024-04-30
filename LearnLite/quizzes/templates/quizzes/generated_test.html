@@ -14,17 +14,17 @@
                     {% for question in questions %}
                         <div class="list-group mb-3">
                             <div class="list-group-item list-group-item-action active">
-                                {{ forloop.counter }}. {{ question.question_text }}
+                                {{ forloop.counter }}. {{ question.question_text|safe }}
                             </div>
                             <div class="list-group-item">
                                 <input type="radio" name="answer_{{ question.id }}" value="a" id="question_{{ forloop.counter }}_a">
-                                <label for="question_{{ forloop.counter }}_a">{{ question.choice_a }}</label><br>
+                                <label for="question_{{ forloop.counter }}_a">{{ question.choice_a|safe }}</label><br>
                                 <input type="radio" name="answer_{{ question.id }}" value="b" id="question_{{ forloop.counter }}_b">
-                                <label for="question_{{ forloop.counter }}_b">{{ question.choice_b }}</label><br>
+                                <label for="question_{{ forloop.counter }}_b">{{ question.choice_b|safe }}</label><br>
                                 <input type="radio" name="answer_{{ question.id }}" value="c" id="question_{{ forloop.counter }}_c">
-                                <label for="question_{{ forloop.counter }}_c">{{ question.choice_c }}</label><br>
+                                <label for="question_{{ forloop.counter }}_c">{{ question.choice_c|safe }}</label><br>
                                 <input type="radio" name="answer_{{ question.id }}" value="d" id="question_{{ forloop.counter }}_d">
-                                <label for="question_{{ forloop.counter }}_d">{{ question.choice_d }}</label>
+                                <label for="question_{{ forloop.counter }}_d">{{ question.choice_d|safe }}</label>
                             </div>
                         </div>
                     {% endfor %}
