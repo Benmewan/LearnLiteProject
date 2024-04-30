@@ -8,10 +8,18 @@
 
 {% block content %}
 <div class="container mt-5">
-    <div class="d-flex justify-content-end align-items-center mb-2">
+    <div class="d-flex justify-content-between mb-2">
+        <!-- Generate New Summary Button on the Left -->
         <a href="{% url 'summary:add_summary' %}" class="btn btn-outline-success">
             <span class="material-symbols-outlined">add</span> Generate New Summary
         </a>
+        <!-- Ordering Dropdown on the Right -->
+        <form action="" method="get" class="form-inline">
+            <select name="order" onchange="this.form.submit()" class="form-control">
+                <option value="newest" {% if order == 'newest' %}selected{% endif %}>Newest to Oldest</option>
+                <option value="oldest" {% if order == 'oldest' %}selected{% endif %}>Oldest to Newest</option>
+            </select>
+        </form>
     </div>
     <div class="row">
         <div class="col mt-2 d-flex flex-column gap-3 align-items-center">
