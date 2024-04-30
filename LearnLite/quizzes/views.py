@@ -1,5 +1,6 @@
 import os
 import PyPDF2
+from django.http import Http404
 import openai
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import TestDocument, GeneratedTest, Question
@@ -133,13 +134,16 @@ def determine_correct_answer(question_data):
 
 @login_required
 def view_generated_test(request, test_id):
-    test = get_object_or_404(GeneratedTest, id=test_id)
-    questions = test.questions.all()
-    for question in questions:
-        print("Q:", question.question_text)
-        print("Choices:", question.choice_a, question.choice_b, question.choice_c, question.choice_d)
-    return render(request, 'quizzes/generated_test.html', {'test': test, 'questions': questions})
-
+    try:
+        test = get_object_or_404(GeneratedTest, id=test_id)
+        questions = test.questions.all()
+        for question in questions:
+            print("Q:", question.question_text)
+            print("Choices:", question.choice_a, question.choice_b, question.choice_c, question.choice_d)
+        return render(request, 'quizzes/generated_test.html', {'test': test, 'questions': questions})
+    except Http404:
+        return redirect('main:not_exist') 
+    
 @login_required
 def submit_test(request, test_id):
     if request.method == 'POST':

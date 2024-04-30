@@ -10,4 +10,5 @@ urlpatterns  = [
     path("message/", views.message_view, name="message_view"),
     path("mode/dark/", views.dark_mode_view, name="dark_mode_view"),
     path("mode/light/", views.light_mode_view, name="light_mode_view"),
+    path('not_exist/', views.not_exist, name='not_exist'),
 ]

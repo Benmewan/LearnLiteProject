@@ -5,3 +5,67 @@
 .incorrect {
     background-color: #ffcdd2;
 }
+.overlay {
+    position: fixed; /* Stay in place */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2; /* Sit on top */
+    cursor: wait;
+}
+#loadingText {
+    display: none; /* Ensure it's hidden initially */
+    font-size: 16px;
+    color: rgb(0, 0, 0);
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+.loading-area {
+    display: none; /* Ensure it's hidden initially */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Dim the background */
+    z-index: 1050;
+}
+
+.loader {
+    display: flex;
+    flex-wrap: wrap;
+    width: 156px; /* Adjusted based on cell size and count */
+    height: 156px;
+    justify-content: center;
+    align-items: center;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    margin: 1px;
+    background-color: transparent;
+    border-radius: 4px;
+    animation: ripple 1.5s ease infinite;
+}
+
+.cell.d-1 { animation-delay: 100ms; }
+.cell.d-2 { animation-delay: 200ms; }
+.cell.d-3 { animation-delay: 300ms; }
+.cell.d-4 { animation-delay: 400ms; }
+
+@keyframes ripple {
+    0% { background-color: transparent; }
+    25% { background-color: #00c3ff; } 
+    50% { background-color: #be00ff; } 
+    75% { background-color: #48c6ef; } 
+    100% { background-color: transparent; }
+}
