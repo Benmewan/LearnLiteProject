@@ -84,5 +84,5 @@ def user_logout(request):
     messages.info(request, '')
     return redirect('accounts:user_login')
 
-def Subscribe(request):
-    return render(request, 'accounts/Subscribe.html')
+def subscribe(request):
+    return render(request, 'accounts/subscribe.html')
