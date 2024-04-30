@@ -1,7 +1,16 @@
+
+.card {
+    background-color: #fff; /* White background for light mode */
+    color: #000; /* Black text for light mode */
+    border: 1px solid #ddd; /* Subtle border in light mode */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Light shadow for depth */
+}
+
 .card-body p {
-    margin-bottom: 1rem; 
-    line-height: 1.5;    
-    text-indent: 20px;   
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    text-indent: 20px;
 }
 
 #loadingText {
@@ -107,4 +116,20 @@
 .btn {
     width: auto;
     padding: .375rem .75rem;
+}
+
+/* Dark mode styles */
+.dark .card {
+    background-color: #333; /* Darker background for dark mode */
+    color: #ccc; /* Lighter text for readability in dark mode */
+    border: 1px solid #444; /* Darker border for contrast */
+}
+
+.dark .card-body p {
+    color: #ddd; /* Even lighter text within the card body for enhanced readability */
+}
+
+/* Optional: If you want to make links stand out */
+.dark .card a {
+    color: #4da6ff; /* Brighter color for links */
 }

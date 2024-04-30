@@ -1,11 +1,44 @@
-.correct {
-    background-color: #c8e6c9; 
+.results {
+    margin-top: 20px;
 }
 
-.incorrect {
-    background-color: #ffcdd2;
+.result-item {
+    border: 1px solid #dee2e6; /* Light grey border */
+    background-color: #fff; /* White background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Soft shadow */
+    border-radius: 4px; /* Rounded corners */
+    padding: 15px; /* Padding inside each item */
+    margin-bottom: 10px; /* Space between items */
+    display: flex; /* Flexbox layout */
+    align-items: center; /* Center items vertically */
+    gap: 10px; /* Space between elements inside the item */
+}
+.dark .result-item {
+    border: 1px solid #535353; /* Light grey border */
+    background-color: #535353; /* White background */
+}
+.result-item.correct {
+    border-left: 15px solid #28a745; /* Green border for correct answers */
 }
 
+.result-item.incorrect {
+    border-left: 15px solid #dc3545; /* Red border for incorrect answers */
+}
+
+.question-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.question-details h4 {
+    margin-bottom: 5px; /* Reduce space below the header */
+    font-size: 1.1rem; /* Larger font size for headers */
+}
+
+.question-details p {
+    margin: 0; /* Remove margin for paragraphs */
+}
 /* the style of loading generating */
 .overlay {
     position: fixed; /* Stay in place */
