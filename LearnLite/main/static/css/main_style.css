@@ -10,6 +10,12 @@
 .main_container {
   min-height: 100vh;
 }
+body {
+  background-image: url('/static/images/study.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 
 /* navbar section */
 .sidebar{
@@ -18,7 +24,8 @@
   top: 0;
   height: 100%;
   width: 90px;
-  background: #fff;
+  background: rgba(86, 86, 86, 0.3);
+    backdrop-filter: blur(15px);
   padding: 6px 0px;
   padding-right: 10px;
   z-index: 99;
@@ -31,7 +38,8 @@
   top: 0;
   height: 100%;
   width: 90px;
-  background: #000;
+  background: rgba(86, 86, 86, 0.3);
+    backdrop-filter: blur(15px);
   padding: 6px 0px;
   padding-right: 10px;
   z-index: 99;
@@ -683,16 +691,18 @@
   flex-direction: row;
 }
 
+.main_boxs {
+  background: rgba(86, 86, 86, 0.1);
+    backdrop-filter: blur(5px);
+}
+
 .bottom_section {
   display: flex;
 }
 
-/* .home_pics{
-  width: 350px;
-} */
 /* contact page  */
 
-.content {
+/* .content {
   padding: 7rem 0; }
 
   .contact_us_text_input {
@@ -740,7 +750,7 @@
     display: none;
     font-weight: bold;
     font-size: 12px;
-    color: #000; }
+    color: #000; } */
 
 /* about page */
 .about_page {
