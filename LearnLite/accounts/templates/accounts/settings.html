@@ -32,10 +32,10 @@
                     <label class="labels">Username</label>
                     <input type="text" class="form-control" name="username" placeholder="Username" value="{{ user.username }}">
                 </div>
-                <div class="col-md-12">
+                {% comment %} <div class="col-md-12">
                     <label class="labels">Mobile Number</label>
                     <input type="text" class="form-control" name="mobile_number" placeholder="Enter phone number" value="{{ user.profile.mobile_number }}">
-                </div>
+                </div> {% endcomment %}
                 <div class="col-md-12">
                     <label class="labels">Email</label>
                     <input type="email" class="form-control" name="email" placeholder="Enter email" value="{{ user.email }}">
