@@ -90,4 +90,4 @@ def save_summary(request, summary_id):
 def discard_summary(request, summary_id):
     summary = get_object_or_404(Summary, id=summary_id)
     summary.delete()  
-    return redirect('summary:add_summary')  
+    return redirect('summary:list_summaries')  

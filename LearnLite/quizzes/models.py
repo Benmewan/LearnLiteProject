@@ -9,6 +9,8 @@ class TestDocument(models.Model):
 class GeneratedTest(models.Model):
     document = models.ForeignKey(TestDocument, on_delete=models.CASCADE, related_name='tests')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    test_name = models.CharField(max_length=255, default='Default Test Name')  # Default name can be overridden
+    test_date = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
 
 class Question(models.Model):

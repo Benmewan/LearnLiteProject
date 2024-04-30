@@ -136,13 +136,16 @@ def determine_correct_answer(question_data):
 def view_generated_test(request, test_id):
     try:
         test = get_object_or_404(GeneratedTest, id=test_id)
-        questions = test.questions.all()
-        for question in questions:
-            print("Q:", question.question_text)
-            print("Choices:", question.choice_a, question.choice_b, question.choice_c, question.choice_d)
-        return render(request, 'quizzes/generated_test.html', {'test': test, 'questions': questions})
     except Http404:
-        return render(request, "main/not_exist.html") 
+        return render(request, "main/not_exist.html")
+    
+    questions = test.questions.all()
+    for question in questions:
+        print("Q:", question.question_text)
+        print("Choices:", question.choice_a, question.choice_b, question.choice_c, question.choice_d)
+    
+    return render(request, 'quizzes/generated_test.html', {'test': test, 'questions': questions})
+
     
 @login_required
 def submit_test(request, test_id):
@@ -195,3 +198,15 @@ def discard_test(request, test_id):
 def all_tests(request):
     tests = GeneratedTest.objects.filter(user=request.user)
     return render(request, 'quizzes/all_tests.html', {'tests': tests})
+
+@login_required
+def all_tests(request):
+    order = request.GET.get('order', 'newest')  # Get the 'order' parameter or default to 'newest'
+    tests = GeneratedTest.objects.filter(user=request.user)
+    
+    if order == 'newest':
+        tests = tests.order_by('-document__upload_date')  # Order by upload_date descending
+    elif order == 'oldest':
+        tests = tests.order_by('document__upload_date')  # Order by upload_date ascending
+    
+    return render(request, 'quizzes/all_tests.html', {'tests': tests, 'order': order})

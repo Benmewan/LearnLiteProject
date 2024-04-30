@@ -5,6 +5,8 @@
 .incorrect {
     background-color: #ffcdd2;
 }
+
+/* the style of loading generating */
 .overlay {
     position: fixed; /* Stay in place */
     display: none; /* Hidden by default */
@@ -68,4 +70,35 @@
     50% { background-color: #be00ff; } 
     75% { background-color: #48c6ef; } 
     100% { background-color: transparent; }
+}
+
+/* end */
+
+.form-group {
+    margin-bottom: .5rem;
+}
+
+.btn {
+    width: auto;
+    padding: .375rem .75rem;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
 }
