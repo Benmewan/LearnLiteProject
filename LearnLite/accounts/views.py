@@ -81,7 +81,7 @@ def profile_settings(request):
 
 def user_logout(request):
     logout(request)
-    messages.info(request, 'Your session has ended.')
+    messages.info(request, '')
     return redirect('accounts:user_login')
 
 def Subscribe(request):
