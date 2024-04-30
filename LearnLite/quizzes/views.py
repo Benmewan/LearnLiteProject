@@ -46,7 +46,7 @@ def extract_text_from_pdf(pdf_file):
     return text
 
 def generate_test(document, text):
-    prompt = "Create a test with 10 questions based on the following content: " + text[:5000]
+    prompt = "Create a test with 10 questions and their answers based on the following content: " + text[:5000]
     api_key = os.getenv("OPENAI_API_KEY")
     openai.api_key = api_key
 

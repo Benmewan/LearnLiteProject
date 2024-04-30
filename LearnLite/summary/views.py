@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import Http404, HttpResponse
 from django.core.paginator import Paginator
+import markdown
+
 
 dotenv_path = os.path.join(os.path.dirname(__file__), 'key.env')
 load_dotenv(dotenv_path=dotenv_path)
@@ -53,10 +55,7 @@ def extract_text_from_pdf(pdf_file):
 
 def get_completion(prompt):
     api_key = os.getenv("OPENAI_API_KEY")
-    if not api_key:
-        raise ValueError("API key is not available")
-
-    openai.api_key = api_key  # Ensure the API key is set
+    openai.api_key = api_key
     structured_prompt = f"Summarize the following content clearly with bullet points or numbered sections: {prompt}"
 
     try:
@@ -67,22 +66,33 @@ def get_completion(prompt):
                 {"role": "user", "content": structured_prompt}
             ],
         )
-        return response['choices'][0]['message']['content'].strip()
+        content = response['choices'][0]['message']['content'].strip()
+
+        # Convert Markdown to HTML
+        html_content = markdown.markdown(content)
+        return html_content
     except Exception as e:
-        print(f"Failed to generate completion with chat model: {str(e)}")
-        raise
+        raise Exception(f"Failed to generate completion with chat model: {str(e)}")
 
 def display_summary(request, summary_id):
     try:
         summary = get_object_or_404(Summary, id=summary_id)
+        # Convert Markdown content to HTML
+        summary.content = markdown.markdown(summary.content)
         return render(request, 'summary/display_summary.html', {'summary': summary})
     except Http404:
         return render(request, "main/not_exist.html")
 
 @login_required
 def list_summaries(request):
-    summaries = Summary.objects.filter(user=request.user)
-    return render(request, 'summary/list_summaries.html', {'summaries': summaries})
+    order = request.GET.get('order', 'newest')  # Default to 'newest' if not specified
+
+    if order == 'oldest':
+        summaries = Summary.objects.filter(user=request.user).order_by('document__upload_date')
+    else:  # Defaults to newest
+        summaries = Summary.objects.filter(user=request.user).order_by('-document__upload_date')
+
+    return render(request, 'summary/list_summaries.html', {'summaries': summaries, 'order': order})
 
 def save_summary(request, summary_id):
     return redirect('summary:list_summaries')
