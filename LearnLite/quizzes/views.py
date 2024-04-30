@@ -8,8 +8,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from dotenv import load_dotenv
 import re
-import markdown
-
 
 dotenv_path = os.path.join(os.path.dirname(__file__), 'key.env')
 load_dotenv(dotenv_path=dotenv_path)
@@ -47,9 +45,8 @@ def extract_text_from_pdf(pdf_file):
         text += page.extract_text()
     return text
 
-
 def generate_test(document, text):
-    prompt = "Create a test with 10 questions based on the following content: " + text[:5000]
+    prompt = "Create a test with 10 questions and their answers based on the following content: " + text[:5000]
     api_key = os.getenv("OPENAI_API_KEY")
     openai.api_key = api_key
 
@@ -60,20 +57,21 @@ def generate_test(document, text):
                       {"role": "user", "content": prompt}],
             max_tokens=2000
         )
+        print("API Response:", response)  
+
         if 'text' in response['choices'][0]:
             content = response['choices'][0]['text'].strip()
+        elif 'message' in response['choices'][0] and 'content' in response['choices'][0]['message']:
+            content = response['choices'][0]['message']['content'].strip()
         else:
-            raise ValueError("Expected 'text' in the response is missing")
+            raise ValueError("Expected 'text' or 'message' with 'content' in the response is missing")
         
-        # Convert Markdown to HTML
-        html_content = markdown.markdown(content)
-        
-        questions_data = parse_questions_from_content(html_content)
+        questions_data = parse_questions_from_content(content)
         process_generated_test(questions_data, document)
     except Exception as e:
         error_msg = f"Failed to generate test with AI model: {str(e)}"
+        print(error_msg)
         raise Exception(error_msg)
-
 
 def process_generated_test(questions_data, document):
     if not questions_data:
