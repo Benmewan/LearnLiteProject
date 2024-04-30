@@ -68,9 +68,9 @@
                             <a class="btn btn-outline-danger  d-flex justify-content-center align-items-center" href="{% url 'tasks:delete_task_view' task.id %}"><span class="material-symbols-outlined">delete</span></a>
                             <a class="btn btn-outline-primary  d-flex justify-content-center align-items-center" href="{% url 'tasks:edit_task_view' task.id %}"><span class="material-symbols-outlined">edit</span></a>
                             {% if task.is_done %}
-                            <a class="btn btn-outline-success  d-flex justify-content-center align-items-center" href="{% url 'tasks:update_task_status_to_false_view' task.id %}"><span class="material-symbols-outlined">task_alt</span></a>
+                            <a class="btn btn-outline-success  d-flex justify-content-center align-items-center" href="{% url 'tasks:update_task_status_to_false_view' task.id %}"><span class="material-symbols-outlined">unpublished</span></a>
                             {% else %}
-                            <a class="btn btn-outline-success  d-flex justify-content-center align-items-center" href="{% url 'tasks:update_task_status_to_true_view' task.id %}"><span class="material-symbols-outlined">unpublished</span></a>
+                            <a class="btn btn-outline-success  d-flex justify-content-center align-items-center" href="{% url 'tasks:update_task_status_to_true_view' task.id %}"><span class="material-symbols-outlined">task_alt</span></a>
                             {% endif %}
                         </div>
                     </div>
