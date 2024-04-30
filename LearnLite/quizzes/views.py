@@ -46,15 +46,14 @@ def extract_text_from_pdf(pdf_file):
     return text
 
 def generate_test(document, text):
-    prompt = "Create a test with 10 questions and their answers based on the following content: " + text[:5000]
+    prompt = f"Create a test with 10 questions based on the following content, each with four options (A, B, C, D) and mark the correct answer clearly after each question in the format 'Correct Answer: X)':\n\n{text[:5000]}"
     api_key = os.getenv("OPENAI_API_KEY")
     openai.api_key = api_key
 
     try:
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
-            messages=[{"role": "system", "content": "You are a helpful assistant."},
-                      {"role": "user", "content": prompt}],
+            messages=[{"role": "system", "content": prompt}],
             max_tokens=2000
         )
         print("API Response:", response)  
@@ -73,6 +72,7 @@ def generate_test(document, text):
         print(error_msg)
         raise Exception(error_msg)
 
+
 def process_generated_test(questions_data, document):
     if not questions_data:
         print("No questions data to process.")
@@ -82,38 +82,31 @@ def process_generated_test(questions_data, document):
     new_test.save()
 
     for question_data in questions_data:
-        question = Question.objects.create(
+        Question.objects.create(
             test=new_test,
             question_text=question_data['text'],
             choice_a=question_data['choices'][0],
             choice_b=question_data['choices'][1],
             choice_c=question_data['choices'][2],
             choice_d=question_data['choices'][3],
-            correct_answer=question_data['correct_answer']
+            correct_answer=question_data['correct_answer']  # Now storing the actual correct answer
         )
-        print(f"Question created: {question.question_text} with choices {question.choice_a}, {question.choice_b}, {question.choice_c}, {question.choice_d}")
 
     print(f"Total questions saved: {new_test.questions.count()}")
 
 
+
 def parse_questions_from_content(content):
     questions = []
-    pattern = r'\d+\.\s(.*?)\?(.*?)(?=\d+\.|$)'  
+    pattern = r'\d+\.\s(.*?)(A\)\s.*?B\)\s.*?C\)\s.*?D\)\s.*?)\nCorrect Answer: ([ABCD])\)'
     matches = re.finditer(pattern, content, re.DOTALL)
 
     for match in matches:
         question_text = match.group(1).strip()
-        choices_text = match.group(2).strip().split('\n') if match.group(2) else []
+        choices_text = match.group(2).split('\n')
+        correct_answer = match.group(3).lower()  # 'a', 'b', 'c', 'd'
 
-        print(f"Debug: Question '{question_text}' with choices {choices_text}")  
-
-        if len(choices_text) < 4:
-            print(f"Warning: Not enough choices for question '{question_text}'")
-            continue  
-
-        choices = [choice.strip() for choice in choices_text[:4]]
-        correct_answer = determine_correct_answer({'choices': choices}) 
-
+        choices = [choice[3:].strip() for choice in choices_text]  # strip choice labels like 'A) '
         questions.append({
             'text': question_text,
             'choices': choices,
@@ -122,6 +115,19 @@ def parse_questions_from_content(content):
 
     print(f"Parsed {len(questions)} questions")
     return questions
+
+
+# Example API content
+content = """
+1. What are addition and subtraction called when working with numbers?\nA. Arithmetical divisions\nB. Arithmetical operations\nC. Arithmetical multiplications\nD. Geometry\n\nCorrect Answer: B. Arithmetical operations\n
+2. Which operations are considered inverse operations?\nA. Addition and Division\nB. Subtraction and Multiplication\nC. Addition and Subtraction\nD. Multiplication and Division\n\nCorrect Answer: C. Addition and Subtraction\n
+"""
+
+# Assuming the content from the API is similar to the string defined above
+questions = parse_questions_from_content(content)
+print(questions)
+
+
 
 def determine_correct_answer(question_data):
     choices = question_data.get('choices', [])
