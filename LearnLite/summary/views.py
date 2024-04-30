@@ -77,7 +77,7 @@ def display_summary(request, summary_id):
         summary = get_object_or_404(Summary, id=summary_id)
         return render(request, 'summary/display_summary.html', {'summary': summary})
     except Http404:
-        return redirect('main:not_exist')
+        return render(request, "main/not_exist.html")
 
 @login_required
 def list_summaries(request):

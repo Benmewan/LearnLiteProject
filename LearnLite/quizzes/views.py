@@ -142,7 +142,7 @@ def view_generated_test(request, test_id):
             print("Choices:", question.choice_a, question.choice_b, question.choice_c, question.choice_d)
         return render(request, 'quizzes/generated_test.html', {'test': test, 'questions': questions})
     except Http404:
-        return redirect('main:not_exist') 
+        return render(request, "main/not_exist.html") 
     
 @login_required
 def submit_test(request, test_id):
