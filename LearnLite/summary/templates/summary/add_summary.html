@@ -3,9 +3,7 @@
 
 {% block title %}Upload Document{% endblock title %}
 
-{% block style %}
-{% static 'css/summary.css' %}
-{% endblock style %}
+{% block style %}{% static 'css/summary.css' %}{% endblock style %}
 
 {% block content %}
 <div style="min-height: 100vh;" class="mt-5">
@@ -30,21 +28,30 @@
             </form>
         </div>
     </div>
-</div>
-
-<div id="overlay" class="overlay">
-    <div class="overlay-content">Generating summary... Please wait.</div>
+    <div id="loadingText" class="loading-area" style="display: none;">
+        <div class="loader">
+            <div class="cell d-0"></div>
+            <div class="cell d-1"></div>
+            <div class="cell d-2"></div>
+            <div class="cell d-1"></div>
+            <div class="cell d-2"></div>
+            <div class="cell d-2"></div>
+            <div class="cell d-3"></div>
+            <div class="cell d-3"></div>
+            <div class="cell d-4"></div>
+        </div>
+          <p> Generating summary... Please wait.</p>
+    </div>
 </div>
 
 <script>
 document.getElementById('uploadForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent form from submitting immediately
-    var overlay = document.getElementById('overlay');
-    overlay.style.display = 'block'; // Show the overlay
+    event.preventDefault(); 
+    document.getElementById('loadingText').style.display = 'flex'; 
 
     setTimeout(() => {
-        this.submit(); // Submit form after the overlay is displayed
-    }, 100); // short delay to ensure the overlay is shown
+        this.submit(); 
+    }, 1000); 
 });
 </script>
 {% endblock content %}
