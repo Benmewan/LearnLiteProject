@@ -14,13 +14,13 @@
                         <label for="filter_options">Filter By:</label>
                         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                             <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="btnradio1" {% if 'btnradio1' == request.GET.btnradio %} checked {% endif %}>
-                            <label class="btn btn-outline-primary" for="btnradio1">Today</label>
+                            <label class="btn btn-outline-dark" for="btnradio1">Today</label>
                             
                             <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="btnradio2" {% if 'btnradio2' == request.GET.btnradio %} checked {% endif %}>
-                            <label class="btn btn-outline-primary" for="btnradio2">Upcoming</label>
+                            <label class="btn btn-outline-dark" for="btnradio2">Upcoming</label>
                             
                             <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" value="btnradio3" {% if 'btnradio3' == request.GET.btnradio %} checked {% endif %}>
-                            <label class="btn btn-outline-primary" for="btnradio3">Past</label>
+                            <label class="btn btn-outline-dark" for="btnradio3">Past</label>
                         </div>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
     <hr>
     <div class="row">
         <div class="d-flex justify-content-end align-items-center">
-            <a class="btn btn-outline-success  d-flex justify-content-center align-items-center" href="{% url 'tasks:add_task_view' %}"><span class="material-symbols-outlined">add</span></a>
+            <a class="btn btn-outline-dark d-flex justify-content-center align-items-center" href="{% url 'tasks:add_task_view' %}"><span class="material-symbols-outlined">add</span></a>
         </div>
         <div class="col mt-2 d-flex flex-column gap-3 align-items-center">
             {% if tasks %}

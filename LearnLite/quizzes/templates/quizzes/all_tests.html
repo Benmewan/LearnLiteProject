@@ -7,16 +7,14 @@
 {% block content %}
 <div class="container mt-5">
     <div class="d-flex justify-content-between mb-2">
-        <a href="{% url 'quizzes:add_test' %}" class="btn btn-outline-success">
-            <span class="material-symbols-outlined">add</span> Add Test
-        </a>
-        <form action="" method="get">
-            <select name="order" onchange="this.form.submit()">
+        <a href="{% url 'quizzes:add_test' %}" class="btn btn-outline-dark">Add Test</a>
+        <form class="d-flex align-items-center" action="" method="get">
+            <label for="select_quiz_option">Choose: </label>
+            <select id="select_quiz_option" name="order" onchange="this.form.submit()" class="form-control">
                 <option value="newest" {% if order == 'newest' %}selected{% endif %}>Newest to Oldest</option>
                 <option value="oldest" {% if order == 'oldest' %}selected{% endif %}>Oldest to Newest</option>
             </select>
         </form>
-        
     </div>
     <div class="row">
         <div class="col mt-2 d-flex flex-column gap-3 align-items-center">
@@ -39,10 +37,8 @@
                             </div>
                         </div>
                         <div class="d-flex gap-2">
-                            <a href="{% url 'quizzes:view_generated_test' test.id %}" class="btn btn-primary">View Test</a>
-                            <a href="{% url 'quizzes:discard_test' test.id %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this test?');">
-                                <span class="material-symbols-outlined">delete</span> Discard
-                            </a>
+                            <a href="{% url 'quizzes:view_generated_test' test.id %}" class="btn btn-outline-dark">View Test</a>
+                            <a href="{% url 'quizzes:discard_test' test.id %}" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this test?');">Discard</a>
                         </div>
                     </div>
                 {% endfor %}

@@ -13,7 +13,7 @@
                     {% csrf_token %}
                     {% for question in questions %}
                         <div class="list-group mb-3">
-                            <div class="list-group-item list-group-item-action active">
+                            <div class="list-group-item list-group-item-action active bg-dark">
                                 {{ forloop.counter }}. {{ question.question_text|safe }}
                             </div>
                             <div class="list-group-item">
@@ -29,7 +29,7 @@
                         </div>
                     {% endfor %}
                     <div class="mt-4">
-                        <button type="submit" class="btn btn-primary">Submit Test</button>
+                        <button type="submit" class="btn btn-outline-dark">Submit Test</button>
                     </div>
                 </form>
             {% else %}
@@ -38,7 +38,7 @@
                 </div>
             {% endif %}
             <div class="mt-4">
-                <a href="{% url 'quizzes:discard_test' test.id %}" class="btn btn-danger">Discard Test</a>
+                <a href="{% url 'quizzes:discard_test' test.id %}" class="btn btn-outline-danger">Discard Test</a>
             </div>
         </div>
     </div>

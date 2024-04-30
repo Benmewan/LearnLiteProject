@@ -17,7 +17,7 @@
     line-height: 1.5;    
     text-indent: 20px;   
 }
-
+/* start here the loading of the summary generating */
 .overlay {
     position: fixed; /* Stay in place */
     display: none; /* Hidden by default */
@@ -87,7 +87,7 @@
     75% { background-color: #48c6ef; } 
     100% { background-color: transparent; }
 }
-
+/* here the end of the loading of the summary generating  */
 .list-group-item {
     border-radius: 0.25rem;
     transition: background-color 0.3s;
