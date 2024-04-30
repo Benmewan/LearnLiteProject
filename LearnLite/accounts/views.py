@@ -83,3 +83,6 @@ def user_logout(request):
     logout(request)
     messages.info(request, 'Your session has ended.')
     return redirect('accounts:user_login')
+
+def Subscribe(request):
+    return render(request, 'accounts/Subscribe.html')

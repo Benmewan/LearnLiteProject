@@ -13,7 +13,8 @@
         <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                 <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                <span class="font-weight-bold">{{ user.username }}</span>
+                <span class="font-weight-bold">{{ user.first_name }} {{ user.last_name }}</span>
+                <span class="text-black-50">ID:{{ user.username }}</span>
                 <span class="text-black-50">{{ user.email }}</span>
                 <span></span>
 
@@ -22,7 +23,7 @@
                 </div>
 
                 <div class="Security-border pt-2">
-                    <span class="Security"><a href="" class="text-decoration-none">Security</a></span>
+                    <span class="Subscribe"><a href="{% url 'accounts:Subscribe' %}" class="text-decoration-none">Subscribe</a></span>
                 </div>
             </div>
         </div>
@@ -30,14 +31,15 @@
             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                 <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
                 <label class="btn btn-outline-primary" for="btnradio1">My Task</label>
-
+        
                 <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
                 <label class="btn btn-outline-primary" for="btnradio2">Tests</label>
-
+        
                 <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
                 <label class="btn btn-outline-primary" for="btnradio3">Summary</label>
             </div>
         </div>
+        
     </div>
 </div>
 {% endblock %}
