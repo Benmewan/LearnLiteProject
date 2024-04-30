@@ -9,30 +9,43 @@ from .models import UserProfileForm
 
 
 def register_user(request):
-#This Messgae will appear if user have some issues with sign up
-    msg = None
-
     if request.method == 'POST':
-        try:
-            #create new user
-            new_user = User.objects.create_user(
-                username=request.POST["username"], 
-                email=request.POST["email"], 
-                first_name=request.POST["first_name"], 
-                last_name=request.POST["last_name"], 
-                password=request.POST["password"]
-            )
-            new_user.save()
-            #redirect to login page
-            return redirect("accounts:user_login")
-        except IntegrityError as e:
-            msg = "Username already exists. Please choose a different username."
-            print(e)
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        password = request.POST.get('password')
+        repeat_password = request.POST.get('repeat_password')
 
-        except Exception as e:
-            msg = f"Something went wrong. Please try again... {e}"
-            print(e)
-    return render(request, 'accounts/register.html', {'msg':msg})
+        # Check if passwords match
+        if password != repeat_password:
+            messages.error(request, "Passwords do not match.")
+            return render(request, 'accounts/register.html')  
+
+        try:
+            # Check if username already exists
+            if User.objects.filter(username=username).exists():
+                messages.error(request, "Username already exists. Please choose a different one.")
+                return render(request, 'accounts/register.html')
+
+            # Check if email already exists
+            if User.objects.filter(email=email).exists():
+                messages.error(request, "Email address is already in use. Please use a different one.")
+                return render(request, 'accounts/register.html')
+            
+            # Create user
+            user = User.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name)
+            # Other user creation logic
+
+            messages.success(request, "User registered successfully.")
+            return render(request, 'accounts/login.html')  
+        
+        except IntegrityError:
+            messages.error(request, "An error occurred during registration. Please try again.")
+            return render(request, 'accounts/register.html')
+
+    return render(request, 'accounts/register.html')
+
 
 def user_login(request):
     if request.method == 'POST':
@@ -70,3 +83,6 @@ def user_logout(request):
     logout(request)
     messages.info(request, 'Your session has ended.')
     return redirect('accounts:user_login')
+
+def Subscribe(request):
+    return render(request, 'accounts/Subscribe.html')
