@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError, transaction
 from django.contrib import messages
 from .models import UserProfileForm, Subsribe, Payment, SubscribtionType
-
+from django.contrib.auth.decorators import login_required
 def register_user(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -82,6 +82,7 @@ def user_logout(request):
     messages.info(request, '')
     return redirect('accounts:user_login')
 
+@login_required
 def subscribe(request):
     if request.user.is_authenticated:
         # Check if the user has subscribed to any of the subscription types

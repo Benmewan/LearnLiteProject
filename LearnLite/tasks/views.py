@@ -5,7 +5,9 @@ from django.utils import timezone
 from datetime import timedelta
 import datetime
 from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
 # Create your views here.
+@login_required
 def all_tasks_view(request:HttpRequest):
     # Fetch all tasks by default
     tasks = Task.objects.all()
