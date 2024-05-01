@@ -18,7 +18,7 @@ body {
 }
 
 /* navbar section */
-.sidebar{
+.dark .sidebar{
   position: fixed;
   left: 0;
   top: 0;
@@ -32,7 +32,7 @@ body {
   transition: all 0.5s ease;
 }
 
-.dark .sidebar {
+.sidebar {
   position: fixed;
   left: 0;
   top: 0;
@@ -45,19 +45,12 @@ body {
   z-index: 99;
   transition: all 0.5s ease;
 }
-.sidebar.open{
-  width: 250px;
-}
-
 .dark .sidebar.open{
   width: 250px;
 }
 
-.sidebar .logo-details{
-  height: 60px;
-  display: flex;
-  align-items: center;
-  position: relative;
+.sidebar.open{
+  width: 250px;
 }
 
 .dark .sidebar .logo-details{
@@ -67,9 +60,11 @@ body {
   position: relative;
 }
 
-.sidebar .logo-details .icon{
-  opacity: 0;
-  transition: all 0.5s ease;
+.sidebar .logo-details{
+  height: 60px;
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 
 .dark .sidebar .logo-details .icon{
@@ -77,42 +72,33 @@ body {
   transition: all 0.5s ease;
 }
 
-.sidebar .logo-details .logo_name{
+.sidebar .logo-details .icon{
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.dark .sidebar .logo-details .logo_name{
   color: #000;
   font-size: 20px;
   font-weight: 600;
   opacity: 0;
   transition: all 0.5s ease;
 }
-
-.dark .sidebar .logo-details .logo_name{
+.sidebar .logo-details .logo_name{
   color: #fff;
   font-size: 20px;
   font-weight: 600;
   opacity: 0;
   transition: all 0.5s ease;
 }
-.sidebar.open .logo-details .icon,
-.sidebar.open .logo-details .logo_name{
-  opacity: 1;
-}
-
 .dark .sidebar.open .logo-details .icon,
 .sidebar.open .logo-details .logo_name{
   opacity: 1;
 }
 
-.sidebar .logo-details #btn{
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  font-size: 22px;
-  transition: all 0.4s ease;
-  font-size: 23px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.5s ease;
+.sidebar.open .logo-details .icon,
+.sidebar.open .logo-details .logo_name{
+  opacity: 1;
 }
 
 .dark .sidebar .logo-details #btn{
@@ -128,15 +114,28 @@ body {
   transition: all 0.5s ease;
 }
 
-.sidebar.open .logo-details #btn{
-  text-align: right;
+.sidebar .logo-details #btn{
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  font-size: 22px;
+  transition: all 0.4s ease;
+  font-size: 23px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s ease;
 }
 
 .dark .sidebar.open .logo-details #btn{
   text-align: right;
 }
 
-.sidebar i{
+.sidebar.open .logo-details #btn{
+  text-align: right;
+}
+
+.dark .sidebar i{
   color: #000;
   height: 60px;
   min-width: 50px;
@@ -145,7 +144,7 @@ body {
   line-height: 60px;
 }
 
-.dark .sidebar i{
+.sidebar i{
   color: #fff;
   height: 60px;
   min-width: 50px;
@@ -153,20 +152,14 @@ body {
   text-align: center;
   line-height: 60px;
 }
-.sidebar .nav-list{
-  margin-top: 20px;
-  height: 100%;
-}
-
 .dark .sidebar .nav-list{
   margin-top: 20px;
   height: 100%;
 }
 
-.sidebar li{
-  position: relative;
-  margin: 8px 0;
-  list-style: none;
+.sidebar .nav-list{
+  margin-top: 20px;
+  height: 100%;
 }
 
 .dark .sidebar li{
@@ -175,7 +168,13 @@ body {
   list-style: none;
 }
 
-.sidebar li .tooltip{
+.sidebar li{
+  position: relative;
+  margin: 8px 0;
+  list-style: none;
+}
+
+.dark .sidebar li .tooltip{
   position: absolute;
   top: -20px;
   left: calc(100% + 15px);
@@ -193,7 +192,7 @@ body {
   transition: 0s;
 }
 
-.dark .sidebar li .tooltip{
+.sidebar li .tooltip{
   position: absolute;
   top: -20px;
   left: calc(100% + 15px);
@@ -209,14 +208,6 @@ body {
   pointer-events: none;
   transition: 0s;
 }
-.sidebar li:hover .tooltip{
-  opacity: 1;
-  pointer-events: auto;
-  transition: all 0.4s ease;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
 .dark .sidebar li:hover .tooltip{
   opacity: 1;
   pointer-events: auto;
@@ -225,26 +216,20 @@ body {
   transform: translateY(-50%);
 }
 
-.sidebar.open li .tooltip{
-  display: none;
+.sidebar li:hover .tooltip{
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.4s ease;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .dark .sidebar.open li .tooltip{
   display: none;
 }
 
-.sidebar input{
-  font-size: 15px;
-  color: #FFF;
-  font-weight: 400;
-  outline: none;
-  height: 50px;
-  width: 100%;
-  width: 50px;
-  border: none;
-  border-radius: 12px;
-  transition: all 0.5s ease;
-  background: #fff;
+.sidebar.open li .tooltip{
+  display: none;
 }
 
 .dark .sidebar input{
@@ -258,19 +243,33 @@ body {
   border: none;
   border-radius: 12px;
   transition: all 0.5s ease;
-  background: #000;
-}
-.sidebar.open input{
-  padding: 0 20px 0 50px;
-  width: 100%;
+  background: #fff;
 }
 
+.sidebar input{
+  font-size: 15px;
+  color: #FFF;
+  font-weight: 400;
+  outline: none;
+  height: 50px;
+  width: 100%;
+  width: 50px;
+  border: none;
+  border-radius: 12px;
+  transition: all 0.5s ease;
+  background: #000;
+}
 .dark .sidebar.open input{
   padding: 0 20px 0 50px;
   width: 100%;
 }
 
-.sidebar .bx-search{
+.sidebar.open input{
+  padding: 0 20px 0 50px;
+  width: 100%;
+}
+
+.dark .sidebar .bx-search{
   position: absolute;
   top: 50%;
   left: 0;
@@ -280,7 +279,7 @@ body {
   color: #fff;
 }
 
-.dark .sidebar .bx-search{
+.sidebar .bx-search{
   position: absolute;
   top: 50%;
   left: 0;
@@ -290,37 +289,25 @@ body {
   color: #000;
 }
 
-.sidebar.open .bx-search:hover{
+.dark .sidebar.open .bx-search:hover{
   background: #fff;
   color: #fff;
 }
 
-.dark .sidebar.open .bx-search:hover{
-  background: #000;
-  color: #000;
-}
-
-.sidebar .bx-search:hover{
+.sidebar.open .bx-search:hover{
   background: #000;
   color: #000;
 }
 
 .dark .sidebar .bx-search:hover{
   background: #000;
-  color: #fff;
-}
-.sidebar li a{
-  display: flex;
-  height: 100%;
-  width: 100%;
-  border-radius: 12px;
-  align-items: center;
-  text-decoration: none;
-  transition: all 0.4s ease;
-  background: rgba(86, 86, 86, 0.3);
-    backdrop-filter: blur(15px);;
+  color: #000;
 }
 
+.sidebar .bx-search:hover{
+  background: #000;
+  color: #fff;
+}
 .dark .sidebar li a{
   display: flex;
   height: 100%;
@@ -333,14 +320,26 @@ body {
     backdrop-filter: blur(15px);;
 }
 
-.sidebar li a:hover{
-  background: #000;
+.sidebar li a{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  border-radius: 12px;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  background: rgba(86, 86, 86, 0.3);
+  backdrop-filter: blur(15px);;
 }
 
 .dark .sidebar li a:hover{
+  background: #000;
+}
+
+.sidebar li a:hover{
   background: #fff;
 }
-.sidebar li a .links_name{
+.dark .sidebar li a .links_name{
   color: #000;
   font-size: 15px;
   font-weight: 400;
@@ -350,7 +349,7 @@ body {
   transition: 0.4s;
 }
 
-.dark .sidebar li a .links_name{
+.sidebar li a .links_name{
   color: #fff;
   font-size: 15px;
   font-weight: 400;
@@ -358,11 +357,6 @@ body {
   opacity: 0;
   pointer-events: none;
   transition: 0.4s;
-}
-
-.sidebar.open li a .links_name{
-  opacity: 1;
-  pointer-events: auto;
 }
 
 .dark .sidebar.open li a .links_name{
@@ -370,31 +364,29 @@ body {
   pointer-events: auto;
 }
 
-.sidebar li a:hover .links_name{
-  transition: all 0.5s ease;
-  color: #fff;
+.sidebar.open li a .links_name{
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.sidebar li a:hover i{
+.dark .sidebar li a:hover .links_name{
   transition: all 0.5s ease;
   color: #fff;
-}
-
-.dark .sidebar li a:hover .links_name {
-  transition: all 0.5s ease;
-  color: #000;
 }
 
 .dark .sidebar li a:hover i{
   transition: all 0.5s ease;
+  color: #fff;
+}
+
+.sidebar li a:hover .links_name {
+  transition: all 0.5s ease;
   color: #000;
 }
 
-.sidebar li i{
-  height: 50px;
-  line-height: 50px;
-  font-size: 18px;
-  border-radius: 12px;
+.sidebar li a:hover i{
+  transition: all 0.5s ease;
+  color: #000;
 }
 
 .dark .sidebar li i{
@@ -404,12 +396,11 @@ body {
   border-radius: 12px;
 }
 
-.sidebar li img{
-  height: 45px;
-  width: 45px;
-  object-fit: cover;
-  border-radius: 6px;
-  margin-right: 10px;
+.sidebar li i{
+  height: 50px;
+  line-height: 50px;
+  font-size: 18px;
+  border-radius: 12px;
 }
 
 .dark .sidebar li img{
@@ -420,12 +411,20 @@ body {
   margin-right: 10px;
 }
 
-.sidebar.open ~ .home-section{
+.sidebar li img{
+  height: 45px;
+  width: 45px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+
+.dark .sidebar.open ~ .home-section{
   left: 250px;
   width: calc(100% - 250px);
 }
 
-.dark .sidebar.open ~ .home-section{
+.sidebar.open ~ .home-section{
   left: 250px;
   width: calc(100% - 250px);
 }
