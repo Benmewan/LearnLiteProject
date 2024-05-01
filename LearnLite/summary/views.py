@@ -27,7 +27,7 @@ def add_summary(request):
         doc_file = request.FILES['document']
         new_doc = Document(uploaded_by=request.user, file=doc_file)
         new_doc.save()
-
+        # Extract text from the uploaded document
         text = extract_text_from_pdf(doc_file)
         if text.strip():
             prompt = "Summarize the following document in detail: " + text[:5000]
@@ -56,9 +56,11 @@ def extract_text_from_pdf(pdf_file):
 def get_completion(prompt):
     api_key = os.getenv("OPENAI_API_KEY")
     openai.api_key = api_key
+        # Construct a structured prompt by appending the input prompt to a predefined message
     structured_prompt = f"Summarize the following content clearly with bullet points or numbered sections: {prompt}"
 
     try:
+            # Send the structured prompt to the GPT-3.5 model using the ChatCompletion 
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo", 
             messages=[
@@ -66,6 +68,7 @@ def get_completion(prompt):
                 {"role": "user", "content": structured_prompt}
             ],
         )
+        # Extract the generated content from the response and strip any leading or trailing whitespace
         content = response['choices'][0]['message']['content'].strip()
 
         # Convert Markdown to HTML
