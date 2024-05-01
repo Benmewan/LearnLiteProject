@@ -10,8 +10,15 @@
 .main_container {
   min-height: 100vh;
 }
-body {
+.light {
   background-image: url('/static/images/main-bg.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.dark {
+  
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -197,7 +204,8 @@ body {
   top: -20px;
   left: calc(100% + 15px);
   z-index: 3;
-  background: #000;
+  background: #fff;
+  color: #000;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   padding: 6px 12px;
   border-radius: 4px;

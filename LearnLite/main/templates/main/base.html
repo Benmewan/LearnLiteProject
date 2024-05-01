@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{% static 'css/main_style.css' %}">
   </head>
 {% block img %}
-<body {% if "mode" in request.COOKIES and request.COOKIES.mode == "dark" %} class="dark" {% endif %}>
+<body {% if "mode" in request.COOKIES and request.COOKIES.mode == "dark" %} class="dark" {% else %} class="light" {% endif %}>
 {% endblock %}
     <div class="sidebar">
         <div class="logo-details">
