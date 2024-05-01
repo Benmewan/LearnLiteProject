@@ -1,0 +1,106 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %}Subscription{% endblock title %}
+
+{% block style %}{% static 'css/accounts.css' %}{% endblock style %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-5">
+            <div class="card">
+                <div class="card-body border p-0">
+                    <div class="collapse p-3 pt-0" id="paypalCollapse">
+                        <div class="row">
+                            <div class="col-8">
+                                <p class="h4 mb-0">Summary</p>
+                                <p class="mb-0"><span class="fw-bold">Product:</span><span class="c-green">: Name of
+                                        product</span></p>
+                                <p class="mb-0"><span class="fw-bold">Price:</span><span
+                                        class="c-green">:$452.90</span></p>
+                                <p class="mb-0">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque
+                                    nihil neque
+                                    quisquam aut
+                                    repellendus, dicta vero? Animi dicta cupiditate, facilis provident quibusdam ab
+                                    quis,
+                                    iste harum ipsum hic, nemo qui!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body border p-0">
+                    <p>
+                        <a class="btn btn-dark p-2 w-100 h-100 d-flex align-items-center justify-content-between"
+                            data-bs-toggle="collapse" href="#cardCollapse" role="button" aria-expanded="true"
+                            aria-controls="cardCollapse">
+                            <span class="fw-bold">Credit Card</span>
+                            <span class="">
+                                <span class="fab fa-cc-amex"></span>
+                                <span class="fab fa-cc-mastercard"></span>
+                                <span class="fab fa-cc-discover"></span>
+                            </span>
+                        </a>
+                    </p>
+                    <div class="collapse show p-3 pt-0" id="cardCollapse">
+                        <div class="row">
+                            <div class="col-lg-5 mb-lg-0 mb-3 d-flex flex-column gap-2">
+                                <p class="h4 mb-0">Summary</p>
+                                <p class="mb-0"><span class="fw-bold">Subscription Type:</span><span class="c-green"> {{subscription_type.name}}</span>
+                                </p>
+                                <p class="mb-0">
+                                    <span class="fw-bold">Price:</span>
+                                    <span class="c-green">{{subscription_type.price}}</span>
+                                </p>
+                                <p class="mb-0">
+                                    <span class="fw-bold">Description:</span>
+                                    <span class="c-green" style="white-space:pre-line;"><br>{{subscription_type.description}}</span>
+                                </p>
+                                <p class="mb-0">
+                                    <span class="fw-bold">Period:</span>
+                                    <span class="c-green">{{subscription_type.days}} Days</span>
+                                </p>
+                            </div>
+                            <div class="col-lg-7">
+                                <form action="{% url 'accounts:subsicription_view' subscription_type.id %}" method="post" class="form">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form__div">
+                                                <label for="" class="form__label">Card Number</label>
+                                                <input type="text" Name="card_number" class="form-control" placeholder="xxxx - xxxx - xxxx -xxxx" required minlength="16">
+                                            </div>
+                                        </div>
+    
+                                        <div class="col-6 mt-3">
+                                            <div class="form__div">
+                                                <label for="" class="form__label">Expiry Date</label>
+                                                <input type="text" name="expiry_date" class="form-control" placeholder="MM / YY">
+                                            </div>
+                                        </div>
+    
+                                        <div class="col-6 mt-3">
+                                            <div class="form__div">
+                                                <label for="" class="form__label">CVV Code</label>
+                                                <input type="password" name="cvv_code" class="form-control" placeholder="***">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mt-3">
+                                            <div class="form__div">
+                                                <label for="" class="form__label">Name on the Card</label>
+                                                <input type="text" name="name_on_card" class="form-control" placeholder="----- -----">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mt-3">
+                                            <input type="submit" class="btn btn-lg btn-block btn-dark" value="Pay">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

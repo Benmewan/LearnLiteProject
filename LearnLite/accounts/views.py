@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpRequest
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.db import IntegrityError
+from django.db import IntegrityError, transaction
 from django.contrib import messages
-from .models import UserProfileForm
+from .models import UserProfileForm, Subsribe, Payment, SubscribtionType
 
 
 
@@ -85,4 +85,43 @@ def user_logout(request):
     return redirect('accounts:user_login')
 
 def subscribe(request):
-    return render(request, 'accounts/subscribe.html')
+    if request.user.is_authenticated:
+        # Check if the user has subscribed to any of the subscription types
+        subscribed_to_free = Subsribe.objects.filter(user=request.user, subscription_type__name__in=['Free']).exists()
+        if subscribed_to_free:
+            subscription_types = SubscribtionType.objects.exclude(name='Free')
+        else:
+            subscription_types = SubscribtionType.objects.all()
+        for index, subscription_type in enumerate(subscription_types):
+            subscription_types[index].months = round(subscription_type.days/30)
+        return render(request, 'accounts/subscribe.html', {"subscription_types" : subscription_types})
+
+def subsicription_view(request:HttpRequest, subscription_type_id):
+    try:
+        subscription_type = SubscribtionType.objects.get(pk=subscription_type_id)
+    except SubscribtionType.DoesNotExist:
+        return render(request, 'main/not_exist.html')
+    if request.method == 'POST':
+        try:
+            #using transaction to ensure all operations are successfull
+            with transaction.atomic():
+                # Create new subscription
+                new_subsribe = Subsribe.objects.create(
+                    subscription_type = subscription_type,
+                    user = request.user
+                )
+                new_subsribe.save()
+
+                # Process payment
+                payment = Payment.objects.create(
+                    subsribe = new_subsribe,
+                    card_number = request.POST['card_number'],
+                    name_on_card = request.POST['name_on_card'],
+                    expiry_date = request.POST['expiry_date'],
+                    cvv_code = request.POST['cvv_code']
+                )
+                payment.save()
+                return redirect('main:index_view')
+        except Exception as e:
+            print(e) 
+    return render(request, 'accounts/subsicription.html',{'subscription_type': subscription_type})
