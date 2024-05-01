@@ -13,23 +13,23 @@
                     {% csrf_token %}
                     {% for question in questions %}
                         <div class="list-group mb-3">
-                            <div class="list-group-item list-group-item-action active">
-                                {{ forloop.counter }}. {{ question.question_text }}
+                            <div class="list-group-item list-group-item-action active bg-dark">
+                                {{ forloop.counter }}. {{ question.question_text|safe }}
                             </div>
                             <div class="list-group-item">
                                 <input type="radio" name="answer_{{ question.id }}" value="a" id="question_{{ forloop.counter }}_a">
-                                <label for="question_{{ forloop.counter }}_a">{{ question.choice_a }}</label><br>
+                                <label for="question_{{ forloop.counter }}_a">{{ question.choice_a|safe }}</label><br>
                                 <input type="radio" name="answer_{{ question.id }}" value="b" id="question_{{ forloop.counter }}_b">
-                                <label for="question_{{ forloop.counter }}_b">{{ question.choice_b }}</label><br>
+                                <label for="question_{{ forloop.counter }}_b">{{ question.choice_b|safe }}</label><br>
                                 <input type="radio" name="answer_{{ question.id }}" value="c" id="question_{{ forloop.counter }}_c">
-                                <label for="question_{{ forloop.counter }}_c">{{ question.choice_c }}</label><br>
+                                <label for="question_{{ forloop.counter }}_c">{{ question.choice_c|safe }}</label><br>
                                 <input type="radio" name="answer_{{ question.id }}" value="d" id="question_{{ forloop.counter }}_d">
-                                <label for="question_{{ forloop.counter }}_d">{{ question.choice_d }}</label>
+                                <label for="question_{{ forloop.counter }}_d">{{ question.choice_d|safe }}</label>
                             </div>
                         </div>
                     {% endfor %}
                     <div class="mt-4">
-                        <button type="submit" class="btn btn-primary">Submit Test</button>
+                        <button type="submit" class="btn btn-outline-dark">Submit Test</button>
                     </div>
                 </form>
             {% else %}
@@ -38,7 +38,7 @@
                 </div>
             {% endif %}
             <div class="mt-4">
-                <a href="{% url 'quizzes:discard_test' test.id %}" class="btn btn-danger">Discard Test</a>
+                <a href="{% url 'quizzes:discard_test' test.id %}" class="btn btn-outline-danger">Discard Test</a>
             </div>
         </div>
     </div>

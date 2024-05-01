@@ -8,16 +8,24 @@
 
 {% block content %}
 <div class="container mt-5">
-    <div class="d-flex justify-content-end align-items-center mb-2">
-        <a href="{% url 'summary:add_summary' %}" class="btn btn-outline-success">
-            <span class="material-symbols-outlined">add</span> Generate New Summary
-        </a>
+    <div class="d-flex justify-content-between mb-2">
+        <!-- Generate New Summary Button on the Left -->
+        <a href="{% url 'summary:add_summary' %}" class="btn btn-outline-dark"> Generate New Summary</a>
+        <!-- Ordering Dropdown on the Right -->
+        <form action="" method="get" class="form-inline">
+            <label for="form_list">Choose: </label>
+            <select id="form_list" name="order" onchange="this.form.submit()" class="form-control">
+                <option value="newest" {% if order == 'newest' %}selected{% endif %}>Newest to Oldest</option>
+                <option value="oldest" {% if order == 'oldest' %}selected{% endif %}>Oldest to Newest</option>
+            </select>
+        </form>
+
     </div>
     <div class="row">
         <div class="col mt-2 d-flex flex-column gap-3 align-items-center">
             {% if summaries %}
                 {% for summary in summaries %}
-                    <div class="border shadow rounded-4 w-100 d-flex justify-content-between p-3 align-items-center">
+                    <div class="border shadow rounded-4 w-100 d-flex justify-content-between p-3 align-items-center gap-2">
                         <div class="d-flex align-items-center gap-5">
                             <div class="d-flex flex-column gap-3">
                                 <h4>Summary from File: <span class="text-muted">{{ summary.document.file.name }}</span></h4>
@@ -26,10 +34,8 @@
                             </div>
                         </div>
                         <div class="d-flex gap-2">
-                            <a href="{% url 'summary:display_summary' summary.id %}" class="btn btn-primary">Read More</a>
-                            <a href="{% url 'summary:discard_summary' summary.id %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this test?');">
-                                <span class="material-symbols-outlined">delete</span> Discard
-                            </a>
+                            <a href="{% url 'summary:display_summary' summary.id %}" class="btn btn-outline-dark">Read More</a>
+                            <a href="{% url 'summary:discard_summary' summary.id %}" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this test?');">Discard</a>
                         </div>
                     </div>
                 {% endfor %}
