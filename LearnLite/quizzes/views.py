@@ -74,13 +74,14 @@ def generate_test(document, text):
 
 
 def process_generated_test(questions_data, document):
+    # Check if there is any questions data to process
     if not questions_data:
         print("No questions data to process.")
         return
-
+    # Create a new GeneratedTest instance associated with the document
     new_test = GeneratedTest(document=document, user=document.uploaded_by)
     new_test.save()
-
+    # Iterate over each question data and create Question instances
     for question_data in questions_data:
         Question.objects.create(
             test=new_test,
@@ -97,11 +98,15 @@ def process_generated_test(questions_data, document):
 
 
 def parse_questions_from_content(content):
+    # Initialize an empty list to store parsed questions
     questions = []
+    # Define the regex pattern to match question, choices, and correct answer
     pattern = r'\d+\.\s(.*?)(A\)\s.*?B\)\s.*?C\)\s.*?D\)\s.*?)\nCorrect Answer: ([ABCD])\)'
+    # Find all matches of the pattern in the content
     matches = re.finditer(pattern, content, re.DOTALL)
-
+    # Iterate over each match
     for match in matches:
+        # Extract question text, choices, and correct answer from the match
         question_text = match.group(1).strip()
         choices_text = match.group(2).split('\n')
         correct_answer = match.group(3).lower()  # 'a', 'b', 'c', 'd'
