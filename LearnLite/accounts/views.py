@@ -94,7 +94,9 @@ def subscribe(request):
             subscription_types = SubscribtionType.objects.all()
         for index, subscription_type in enumerate(subscription_types):
             subscription_types[index].months = round(subscription_type.days/30)
-        return render(request, 'accounts/subscribe.html', {"subscription_types" : subscription_types})
+    else:
+        subscription_types = SubscribtionType.objects.all()
+    return render(request, 'accounts/subscribe.html', {"subscription_types" : subscription_types})
 
 def subsicription_view(request:HttpRequest, subscription_type_id):
     try:
