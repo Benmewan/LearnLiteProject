@@ -6,8 +6,6 @@ from django.db import IntegrityError, transaction
 from django.contrib import messages
 from .models import UserProfileForm, Subsribe, Payment, SubscribtionType
 
-
-
 def register_user(request):
     if request.method == 'POST':
         username = request.POST.get('username')
