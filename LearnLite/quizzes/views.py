@@ -128,16 +128,6 @@ questions = parse_questions_from_content(content)
 print(questions)
 
 
-
-def determine_correct_answer(question_data):
-    choices = question_data.get('choices', [])
-    try:
-        longest = max(choices, key=len)  
-        return 'abcd'[choices.index(longest)]
-    except ValueError:
-        print(f"Error determining correct answer for choices: {choices}")
-        return None 
-
 @login_required
 def view_generated_test(request, test_id):
     try:

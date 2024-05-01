@@ -85,11 +85,11 @@ def display_summary(request, summary_id):
 
 @login_required
 def list_summaries(request):
-    order = request.GET.get('order', 'newest')  # Default to 'newest' if not specified
+    order = request.GET.get('order', 'newest') 
 
     if order == 'oldest':
         summaries = Summary.objects.filter(user=request.user).order_by('document__upload_date')
-    else:  # Defaults to newest
+    else:  
         summaries = Summary.objects.filter(user=request.user).order_by('-document__upload_date')
 
     return render(request, 'summary/list_summaries.html', {'summaries': summaries, 'order': order})
